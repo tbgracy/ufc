@@ -4,22 +4,23 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RankingPage from "./pages/RankingPage";
 import RulesPage from "./pages/RulesPage";
+import Page from "./components/Page";
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomePage />
+    element: <Page content={<HomePage />} />
   },
   {
     path: '/ranking',
-    element: <RankingPage />
+    element: <Page content={<RankingPage />} />
   },
   {
     path: '/rules',
-    element: <RulesPage />
+    element: <Page content={<RulesPage />} />
   },
   {
     path: '/login',
-    element: <LoginPage />
+    element: <Page content={<LoginPage />} />
   },
 ]);

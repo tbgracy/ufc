@@ -1,0 +1,46 @@
+@keyframes underlineAppear {
+    from {
+        transform: scale(0);
+        transform-origin: center;
+    }
+    to {
+        transform-origin: center;
+        transform: scale(1);
+    }
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 1rem auto;
+  
+    ul {
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 300px;
+      
+      li.current-page::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 80%;
+        margin-left: 10%;
+        border-bottom: $border-width solid $accent-color;
+        animation: underlineAppear 0.3s ease-in-out;
+      }
+  
+      li {
+        display: inline-block;
+        position: relative;
+  
+        a {
+          color: white;
+          font-weight: bold;
+          text-decoration: none;
+        }
+      }
+    }
+  }
