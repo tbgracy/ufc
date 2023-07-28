@@ -10,10 +10,13 @@
 }
 
 nav {
-    display: flex;
+  width: 80%;
+  height: 80px;
+  display: flex;
     justify-content: space-between;
-    width: 80%;
-    margin: 1rem auto;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
   
     ul {
       list-style: none;

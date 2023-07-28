@@ -1,3 +1,6 @@
 export default function HomePage() {
-    return <main></main>
+    return <main>
+        <h2>This week's entries</h2>
+        
+    </main>
 } 

@@ -4,7 +4,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RankingPage from "./pages/RankingPage";
 import RulesPage from "./pages/RulesPage";
-import Page from "./components/Page";
+import Page from "./components/Layout";
 import GithubAuth from "./pages/GithubAuth";
 
 export const router = createBrowserRouter([
