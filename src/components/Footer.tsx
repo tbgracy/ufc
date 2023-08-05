@@ -1,3 +1,7 @@
-export default function Footer(){
-    return <footer>Made with 🧠 by Gracy</footer>
+export default function Footer() {
+    return <footer>
+        <p>
+            Made with 🧠 by @tbgracy + @lucazh + @safidy
+        </p >
+    </footer>
 }

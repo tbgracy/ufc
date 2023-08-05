@@ -17,3 +17,16 @@ Then you push your code to your repository and it will be automatically added to
 You need to host your code on github pages (or any other provider) to be able to see it on the website and provide the url in the `README.md` file (it will be automatically be scrapped).
 
 ## 👥 Authors
+
+- Tsierenana Botramanagna Gracy for the idea and coding
+- Luca Zo Haingo for the overall design
+- Safidy Raharijesy for the logo
+
+## TODO 
+- [ ] Use react layout (for better perf for the navbar rendering, I guess)
+- [ ] Add pagination
+- [ ] Add handmade icons (by me)
+- [ ] Make it mobile friendly
+- [ ] Add view toggle (card / list)
+- [ ] Automate template selection (using scrapping)
+- [ ] Internationalization

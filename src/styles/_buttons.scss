@@ -4,15 +4,15 @@ button {
     box-sizing: border-box;
     border: $border-width solid $accent-color;
     padding: .2rem 2rem;
-    color: white;
-    background-color: $dark;
     font-size: 1rem;
     cursor: pointer;
+    background-color: $accent-color;
+    color: $dark;
     @include basicTransition;
-
+    
     &:hover {
-        background-color: $accent-color;
-        color: $dark;
         @include basicTransition;
+        background-color: $dark;
+        color: white;
     }
 }

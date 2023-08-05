@@ -4,6 +4,7 @@
 
 @import 'navbar';
 @import 'footer';
+@import 'entries';
 @import 'buttons';
 
 :root {
@@ -15,9 +16,14 @@
   margin: 0;
 }
 
+::selection {
+  background-color: $white;
+  color: $dark;
+}
+
 html {
   font-family: 'Poppins', sans-serif;
-  color: white;
+  color: $white;
 }
 
 body {
@@ -25,6 +31,10 @@ body {
 
   main {
     min-height: calc(100vh - 80px - 40px);
+    text-align: center;
+
+    section {
+      margin: 2rem;
+    }
   }
 }
-

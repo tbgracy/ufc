@@ -32,7 +32,7 @@ nav {
         width: 80%;
         margin-left: 10%;
         border-bottom: $border-width solid $accent-color;
-        animation: underlineAppear 0.3s ease-in-out;
+        animation: underlineAppear 0.6s ease-in-out;
       }
   
       li {
@@ -40,7 +40,7 @@ nav {
         position: relative;
   
         a {
-          color: white;
+          color: $white;
           font-weight: bold;
           text-decoration: none;
         }

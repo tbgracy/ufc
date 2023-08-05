@@ -5,13 +5,15 @@ export default class GithubAPIService {
         try {
 
             const response = await fetch(url);
-            
+
             console.log(response);
+            const res = await response.json();
+            console.log(res);
             
             return response;
-        } catch (e){
+        } catch (e) {
             console.log(e);
-            
+
         }
     }
 }
