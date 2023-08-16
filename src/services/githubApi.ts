@@ -6,20 +6,26 @@ export default class GithubAPIService {
 
         try {
             const response = await fetch(url);
-            const res = await response.json();
-            return res.get('token');
+            const { token } = await response.json();
+            return token;
         } catch (e) {
             console.log(e);
         }
     }
 
     static async getUserInfo(token: string) {
+        const headers = {
+            'Accept': 'application/vnd.github+json',
+            'Authorization': `Bearer ${token}`,
+            'X-GitHub-Api-Version' : '2022-11-28',
+        }
+        
+        console.log(token);
+        console.log(headers);
+
         try {
             const result = await fetch(`${this.baseUrl}/user`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Accept': 'application/vnd.github+json',
-                }
+                headers: headers,
             });
             const parsedResponse = await result.json();
             return parsedResponse;
