@@ -1,7 +1,7 @@
-import { Author } from "./author";
+import { Challenger } from "./challenger";
 
 export type Entry = {
     id: number;
     url: string;
-    author: Author;
+    author: Challenger;
 }

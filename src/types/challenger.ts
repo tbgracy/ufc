@@ -1,4 +1,4 @@
-export type Author = {
+export type Challenger = {
     id?: number,
     name: string,
     profileUurl: string,

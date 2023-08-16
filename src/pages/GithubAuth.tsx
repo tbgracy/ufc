@@ -1,7 +1,7 @@
 import { ClipLoader } from "react-spinners";
 import { useQuery } from "@tanstack/react-query";
 
-import GithubAPIService from "../services/githubApi";
+import { ChallengerService } from "../services/api";
 
 
 export default function GithubAuth() {
@@ -10,7 +10,7 @@ export default function GithubAuth() {
         const searchParams = window.location.search;
         const code = searchParams.replace('?code', '');
         if (code !== null){
-            return GithubAPIService.getToken(code);
+            return ChallengerService.registerChallenger(code);
         } else {
             throw Error('code not found');
         }
