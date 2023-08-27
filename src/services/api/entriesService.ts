@@ -1,34 +1,51 @@
+import { collection, getDocs } from "firebase/firestore";
+
+import { db } from "../firebase";
+
+import GithubAPIService from "../githubApi";
+
 import { Entry } from "../../types/entry";
+import { Challenger } from "../../types/challenger";
+import isFromThisWeek from "../../utils/isFromThisWeek";
 
 export default class EntriesService {
     static async getWeeksEntries() {
         const entries: Entry[] = [];
+        const challengers: Challenger[] = [];
 
-        const names = ['Gracy', 'Glorio', 'Glorinah'];
-        const urls = ['https://github.com/tbgracy/qlqchose', 'https://github.com/tbgracy/LAchose', 'https://github.com/tbgracy/chose'];
+        const querySnapshot = await getDocs(collection(db, "challengers"));
 
-        // TODO : Fix this function
-        function getRandomNumBelow(max: number) {
-            return Math.abs(Math.floor(Math.random() * 10 - max - 1))
+        querySnapshot.forEach(async (doc) => {
+            const challenger: Challenger = {
+                id: doc.id,
+                name: doc.data().name,
+                profileUurl: `https://github.com/${doc.data().name}`,
+                pictureUrl: doc.data().pictureUrl,
+            }
+
+            challengers.push(challenger);
+        });
+
+        for (const challenger of challengers) {
+            const repos = await GithubAPIService.getRepos(challenger.name);
+
+            const thisWeeksRepo = repos.filter(repo => {
+                const createdThisWeek: boolean = isFromThisWeek(new Date(repo.created_at));
+                const hasUfcInName: boolean = repo.name.includes('ufc');
+
+                return createdThisWeek && hasUfcInName;
+            })[0];
+
+            const entry: Entry = {
+                id: challenger.id ?? '',
+                url: thisWeeksRepo.url,
+                homepage: thisWeeksRepo.homepage,
+                author: challenger,
+            }
+
+            entries.push(entry);
         }
 
-        for (let i = 0; i < 20; i++) {
-            entries.push(
-                {
-                    id: i,
-                    url: urls[getRandomNumBelow(urls.length)],
-                    author: {
-                        id: i,
-                        name: names[getRandomNumBelow(names.length)],
-                        profileUurl: 'https://github.com',
-                        pictureUrl: 'https://placeholder.com',
-                    }
-                }
-            )
-        }
-
-        console.log(entries);
-        
         return entries;
     }
 

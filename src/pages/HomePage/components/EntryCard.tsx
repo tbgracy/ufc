@@ -16,7 +16,7 @@ export default function EntryCard({ isLoading, entry }: EntryProps) {
     return <article className={className}>
         <div className="entry-info">
             <img src="#" alt="preview" />
-            <a href="#" target="_blank"><BiLinkExternal /></a>
+            <a href={entry!.homepage} target="_blank"><BiLinkExternal /></a>
         </div>
         <div className="author-info">
             <p>by {entry!.author.name}</p>

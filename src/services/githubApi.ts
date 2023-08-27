@@ -1,3 +1,5 @@
+import { Repository } from "../types/repository";
+
 export default class GithubAPIService {
     static baseUrl = 'https://api.github.com';
 
@@ -17,9 +19,9 @@ export default class GithubAPIService {
         const headers = {
             'Accept': 'application/vnd.github+json',
             'Authorization': `Bearer ${token}`,
-            'X-GitHub-Api-Version' : '2022-11-28',
+            'X-GitHub-Api-Version': '2022-11-28',
         }
-        
+
         console.log(token);
         console.log(headers);
 
@@ -32,6 +34,18 @@ export default class GithubAPIService {
         }
         catch (e) {
             console.log(e);
+        }
+    }
+
+    static async getRepos(user: string): Promise<Repository[]> {
+        const reqUrl = `${this.baseUrl}/users/${user}/repos?sort=created&per_page=100`;
+
+        try {
+            const response = await fetch(reqUrl);
+            return response.json();
+        } catch (e) {
+            console.log(e);
+            return [];
         }
     }
 }

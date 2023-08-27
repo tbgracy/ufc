@@ -1,7 +1,8 @@
 import { Challenger } from "./challenger";
 
 export type Entry = {
-    id: number;
+    id: string;
     url: string;
+    homepage: string;
     author: Challenger;
 }

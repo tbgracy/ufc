@@ -1,5 +1,5 @@
 export type Challenger = {
-    id?: number,
+    id?: string,
     name: string,
     profileUurl: string,
     pictureUrl: string,

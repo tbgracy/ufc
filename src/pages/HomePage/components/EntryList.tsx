@@ -8,7 +8,6 @@ import { Entry } from "../../../types/entry";
 
 export default function EntryList() {
     const { isLoading, error, data } = useQuery(['entries'], () => {
-        console.log('something happening');
         return EntriesService.getWeeksEntries()
     }
     );
@@ -17,7 +16,7 @@ export default function EntryList() {
         const entryElements = [];
         for (let i = 0; i < 6; i++) {
             entryElements.push(
-                <EntryCard isLoading={true} />
+                <EntryCard key={i} isLoading={true} />
             );
         }
 
@@ -32,7 +31,9 @@ export default function EntryList() {
 
     const entryElements = data!.map((entry: Entry, i: number) => <EntryCard key={i} isLoading={false} entry={entry} />)
 
-    return <section className="entry-list">
-        {entryElements}
-    </section>
+    return (
+        entryElements.length != 0
+            ? (<section className="entry-list">{entryElements}</section>)
+            : ("No entry yet for this week")
+    )
 }
