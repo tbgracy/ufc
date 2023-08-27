@@ -17,7 +17,7 @@ export default function Navbar() {
             <NavLink target="/rules" label="Rules" isCurrent={currentPath === '/rules'} />
         </ul>
         <div className="action">
-            <Button label="Login" onClick={() => goTo('/login')} />
+            <Button label="Register" onClick={() => goTo('/login')} />
         </div>
     </nav>
 }
