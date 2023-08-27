@@ -23,8 +23,9 @@ You need to host your code on github pages (or any other provider) to be able to
 - Safidy Raharijesy for the logo
 
 ## TODO 
-- [ ] Use react layout (for better perf for the navbar rendering, I guess)
+- [x] Use react layout (for better perf for the navbar rendering, I guess)
 - [ ] Add pagination
+- [ ] Add lighthouse performance measure 
 - [ ] Add handmade icons (by me)
 - [ ] Make it mobile friendly
 - [ ] Add view toggle (card / list)
