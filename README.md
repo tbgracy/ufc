@@ -4,6 +4,8 @@
 
 A weekly frontend challenge to improve your skills in HTML, CSS and JavaScript.
 
+NB: This project is mainly for React/TS learning purpose
+
 ## How to participate
 
 Go to [dot.com](dot.com). Login with your github account.
