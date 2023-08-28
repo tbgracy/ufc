@@ -22,9 +22,6 @@ export default class GithubAPIService {
             'X-GitHub-Api-Version': '2022-11-28',
         }
 
-        console.log(token);
-        console.log(headers);
-
         try {
             const result = await fetch(`${this.baseUrl}/user`, {
                 headers: headers,
