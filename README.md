@@ -24,9 +24,10 @@ You need to host your code on github pages (or any other provider) to be able to
 
 ## TODO 
 - [x] Use react layout (for better perf for the navbar rendering, I guess)
+- [ ] Add unit tests
 - [ ] Add pagination
-- [ ] Add lighthouse performance measure 
-- [ ] Add handmade icons (by me)
+- [ ] Add ranking algo (using votes x lighthouse x latest commit date)
+- [ ] Add handmade icons
 - [ ] Make it mobile friendly
 - [ ] Add view toggle (card / list)
 - [ ] Automate template selection (using scrapping)
