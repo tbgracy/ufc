@@ -1,16 +1,18 @@
 import { ClipLoader } from "react-spinners";
 import { useQuery } from "@tanstack/react-query";
 
-import { ChallengerService } from "../services/api";
+import { useContext } from "react";
+import { ServicesContext } from "../contexts";
 
 
 export default function GithubAuth() {
-    // tokony alefa amin'service akagny leh url aveo agnay mitraite azy
+    const service = useContext(ServicesContext).challenger;
+
     const { isLoading, error, data } = useQuery(['token'], () => {
         const searchParams = window.location.search;
         const code = searchParams.replace('?code=', '');
         if (code !== null) {
-            return ChallengerService.registerChallenger(code);
+            return service.registerChallenger(code);
         } else {
             throw Error('code not found');
         }
@@ -21,6 +23,6 @@ export default function GithubAuth() {
     if (error) return 'An error has occured'
 
     return <div>
-        { data }
+        {data?.toString()}
     </div>
 } 

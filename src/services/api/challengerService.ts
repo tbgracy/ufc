@@ -3,9 +3,26 @@ import GithubAPIService from "../githubApi";
 import { collection, addDoc, Timestamp, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
-export default class ChallengerService {
+export interface IChallengerService {
+    getAllChallengers(): Promise<Challenger[]>;
+    registerChallenger(githubCode: string): Promise<string | Error>;
+}
 
-    private static async isChallengerAlreadyRegistered(name: string): Promise<boolean> {
+export class MockChallengerService implements IChallengerService {
+    getAllChallengers(): Promise<Challenger[]> {
+        throw new Error("Method not implemented.");
+    }
+    registerChallenger(githubCode: string): Promise<string> {
+        console.log(githubCode);
+        
+        throw new Error("Method not implemented.");
+    }
+
+}
+
+export default class ChallengerService implements IChallengerService {
+
+    private async isChallengerAlreadyRegistered(name: string): Promise<boolean> {
         const challengers = await this.getAllChallengers();
 
         for (const challenger of challengers) {
@@ -17,7 +34,7 @@ export default class ChallengerService {
         return false;
     }
 
-    static async getAllChallengers(): Promise<Challenger[]> {
+    async getAllChallengers(): Promise<Challenger[]> {
         const challengers: Challenger[] = [];
 
         const querySnapshot = await getDocs(collection(db, "challengers"));
@@ -26,8 +43,8 @@ export default class ChallengerService {
             const challenger: Challenger = {
                 id: doc.id,
                 name: doc.data().name,
-                profileUurl: `https://github.com/${doc.data().name}`,
-                pictureUrl: doc.data().pictureUrl,
+                profileUrl: `https://github.com/${doc.data().name}`,
+                profilePictureUrl: doc.data().pictureUrl,
             }
 
             challengers.push(challenger);
@@ -36,19 +53,19 @@ export default class ChallengerService {
         return challengers;
     }
 
-    static async registerChallenger(githubCode: string): Promise<string> {
+    async registerChallenger(githubCode: string): Promise<string | Error> {
         const token = await GithubAPIService.getToken(githubCode);
         const userInfo = await GithubAPIService.getUserInfo(token);
 
         const user: Challenger = {
             name: userInfo.login,
-            profileUurl: `https://github.com/${userInfo.login}`,
-            pictureUrl: userInfo.avatar_url,
+            profileUrl: `https://github.com/${userInfo.login}`,
+            profilePictureUrl: userInfo.avatar_url,
         }
 
         try {
             if (await this.isChallengerAlreadyRegistered(user.name))
-                return 'Vous êtes déjà inscrit(e) !';
+                return Error('Vous êtes déjà inscrit(e) !');
 
             await addDoc(collection(db, "challengers"), { ...user, createdAt: Timestamp.now() });
 

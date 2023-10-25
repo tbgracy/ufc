@@ -1,4 +1,4 @@
-export function getGitHubUrl() {
+export default function getGitHubUrl() {
     const rootURl = "https://github.com/login/oauth/authorize";
 
     const options = {

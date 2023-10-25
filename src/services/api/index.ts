@@ -1,7 +1,7 @@
-import ChallengerService from "./challengerService";
-import EntriesService from "./entriesService";
+// import {IChallengerService} from "./challengerService";
+// import EntriesService from "./entriesService";
 
-export {
-    EntriesService,
-    ChallengerService
-};
+// export {
+//     IEntriesService,
+//     IChallengerService
+// };

@@ -3,14 +3,16 @@ import { useQuery } from "@tanstack/react-query";
 // components
 import EntryCard from "./EntryCard";
 
-import { EntriesService } from "../../../services/api";
 import { Entry } from "../../../types/entry";
+import { useContext } from "react";
+import { ServicesContext } from "../../../contexts";
 
 export default function EntryList() {
+    const service = useContext(ServicesContext).entry;
+
     const { isLoading, error, data } = useQuery(['entries'], () => {
-        return EntriesService.getWeeksEntries()
-    }
-    );
+        return service.getWeeksEntries();
+    });
 
     if (isLoading) {
         const entryElements = [];
@@ -29,11 +31,16 @@ export default function EntryList() {
         return <section className="entry-list">An error has occured : </section>
     }
 
-    const entryElements = data!.map((entry: Entry, i: number) => <EntryCard key={i} isLoading={false} entry={entry} />)
+    if (data instanceof Error) {
+        return data.message;
 
-    return (
-        entryElements.length != 0
-            ? (<section className="entry-list">{entryElements}</section>)
-            : ("No entry yet for this week")
-    )
+    } else {
+        const entryElements = data!.map((entry: Entry, i: number) => <EntryCard key={i} isLoading={false} entry={entry} />)
+
+        return (
+            entryElements.length != 0
+                ? (<section className="entry-list">{entryElements}</section>)
+                : ("No entry yet for this week")
+        )
+    }
 }

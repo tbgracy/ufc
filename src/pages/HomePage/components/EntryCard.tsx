@@ -20,8 +20,8 @@ export default function EntryCard({ isLoading, entry }: EntryProps) {
         </div>
         <div className="author-info">
             <p>by {entry!.author.name}</p>
-            <a href={entry!.author.profileUurl} target="_blank">
-                <img src={entry!.author.pictureUrl} alt="" />
+            <a href={entry!.author.profileUrl} target="_blank">
+                <img src={entry!.author.profilePictureUrl} alt="" />
             </a>
         </div>
     </article>
