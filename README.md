@@ -25,6 +25,7 @@ You need to host your code on github pages (or any other provider) to be able to
 - Safidy Raharijesy for the logo
 
 ## TODO 
+- [ ] Set up message system (popups, with semantic color)
 - [x] Use react layout (for better perf for the navbar rendering, I guess)
 - [ ] Add unit tests
 - [ ] Add pagination
