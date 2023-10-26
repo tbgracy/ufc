@@ -1,19 +1,51 @@
 import { FaGithub, FaFacebook } from "react-icons/fa";
-import { getGitHubUrl } from "../utils/getGithubUrl";
+import { useContext } from "react";
+import { ServicesContext } from "../contexts";
 
 export default function LoginPage() {
+    const service = useContext(ServicesContext).login;
+
     function handleChallengerLogin() {
-        window.location.href = getGitHubUrl();
+        service.loginAs('challenger');
     }
 
+    function handleChallengerRegister() {
+
+    }
+
+    function handleVoterLogin() {
+        service.loginAs('voter')
+    }
+
+    function handleVoterRegister() { }
+
     return <main>
-        <h2>Login</h2>
-        <p>You can either connect as a challenger or a code.</p>
-        <button onClick={handleChallengerLogin}>
-            <FaGithub /> Login as challenger
-        </button>
-        <button disabled>
-            <FaFacebook /> Login as a voter
-        </button>
+        <p>You can either login/register as a challenger or a code.</p>
+        <section>
+            <h2>Login</h2>
+            <section>
+                <button onClick={handleChallengerLogin}>
+                    <FaGithub /> Login as challenger
+                </button>
+            </section>
+            <section>
+                <button onClick={handleVoterLogin}>
+                    <FaFacebook /> Login as a voter
+                </button>
+            </section>
+        </section>
+        <section>
+            <h2>Register</h2>
+            <section>
+                <button onClick={handleChallengerRegister}>
+                    <FaGithub /> Register as a challenger
+                </button>
+            </section>
+            <section>
+                <button onClick={handleVoterRegister}>
+                    <FaFacebook /> Register as a voter
+                </button>
+            </section>
+        </section>
     </main>
 } 

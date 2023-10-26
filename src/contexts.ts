@@ -3,7 +3,7 @@ import ChallengerService, { IChallengerService, MockChallengerService } from "./
 import EntriesService, { IEntriesService, MockEntriesService } from "./services/api/entriesService";
 import { ILoginService, LoginService, MockLoginService } from "./services/loginService";
 
-const inDevEnv = true;
+const inDevEnv = false;
 
 type ServicesContextType = {
     challenger: IChallengerService,
