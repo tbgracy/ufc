@@ -1,51 +1,42 @@
-import { FaGithub, FaFacebook } from "react-icons/fa";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 import { useContext } from "react";
 import { ServicesContext } from "../contexts";
+import { useAuthStore } from "../store/authStore";
 
 export default function LoginPage() {
     const service = useContext(ServicesContext).login;
+    const updateUser = useAuthStore((state) => state.updateUser);
 
-    function handleChallengerLogin() {
-        service.loginAs('challenger');
+    function handleLogin(provider: 'github' | 'google') {
+        service.loginWith(provider).then(result => {
+            console.log(result);
+            const user = JSON.parse(localStorage.getItem('user')!);
+            updateUser(user);
+        });
     }
 
-    function handleChallengerRegister() {
-
+    function handleRegister(provider: 'github' | 'google') {
+        console.log(provider);
     }
-
-    function handleVoterLogin() {
-        service.loginAs('voter')
-    }
-
-    function handleVoterRegister() { }
 
     return <main>
-        <p>You can either login/register as a challenger or a code.</p>
         <section>
             <h2>Login</h2>
-            <section>
-                <button onClick={handleChallengerLogin}>
-                    <FaGithub /> Login as challenger
-                </button>
-            </section>
-            <section>
-                <button onClick={handleVoterLogin}>
-                    <FaFacebook /> Login as a voter
-                </button>
-            </section>
+            <button onClick={() => handleLogin('github')}>
+                <FaGithub /> with Github
+            </button>
+            <button onClick={() => handleLogin('google')}>
+                <FaGoogle /> with Google
+            </button>
         </section>
         <section>
             <h2>Register</h2>
-            <section>
-                <button onClick={handleChallengerRegister}>
-                    <FaGithub /> Register as a challenger
-                </button>
-            </section>
-            <section>
-                <button onClick={handleVoterRegister}>
-                    <FaFacebook /> Register as a voter
-                </button>
-            </section>
+            <button onClick={() => handleRegister('github')}>
+                <FaGithub /> with Github
+            </button>
+            <button onClick={() => handleRegister('google')}>
+                <FaGoogle /> with Google
+            </button>
         </section>
     </main>
 } 

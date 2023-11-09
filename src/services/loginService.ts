@@ -1,20 +1,19 @@
-import { FacebookAuthProvider, signInWithPopup } from "firebase/auth";
+import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { Success } from "../types/success";
-import { getGitHubUrl } from "../utils";
 import { auth } from "./firebase";
 import { Challenger } from "../types/challenger";
 import { Voter } from "../types/voter";
 
 
 export interface ILoginService {
-    loginAs(role: 'challenger' | 'voter'): Promise<Error | string>;
+    loginWith(provider: 'github' | 'google'): Promise<Error | string>;
     logout(): Promise<Error | Success>;
 }
 
 export class MockLoginService implements ILoginService {
-    async loginAs(role: 'challenger' | 'voter'): Promise<Error | string> {
+    async loginWith(provider: 'github' | 'google'): Promise<Error | string> {
         let user: Challenger | Voter;
-        if (role == 'challenger') {
+        if (provider == 'github') {
             user = {
                 name: '',
                 profileUrl: '',
@@ -28,7 +27,7 @@ export class MockLoginService implements ILoginService {
                 profilePictureUrl: '',
             }
         }
-        
+
         return 'User logged in';
     }
 
@@ -39,38 +38,35 @@ export class MockLoginService implements ILoginService {
 }
 
 export class LoginService implements ILoginService {
-    private async challengerLogin() {
-        window.location.href = getGitHubUrl();
-        return Error('Method not implemented')
+    private providers = {
+        'google': new GoogleAuthProvider(),
+        'github': new GithubAuthProvider(),
     }
 
-    private async voterLogin() {
-        const provider = new FacebookAuthProvider();
-        console.log(provider);
-
-        provider.setCustomParameters({
-            'display': 'popup'
-        });
-
+    async loginWith(provider: 'github' | 'google'): Promise<Error | string> {
         try {
-            const result = await signInWithPopup(auth, provider);
+            const result = await signInWithPopup(auth, this.providers[provider])
+            console.log(result);
+            localStorage.setItem('user', JSON.stringify({
+                id: result.user.uid,
+                name: result.user.displayName,
+                profilePictureUrl: result.user.photoURL,
+            }))
             return `User ${result.user.displayName} is successfully logged in.`;
         } catch (e) {
             console.error(e);
             return Error('An error has occured');
         }
-    }
 
-    async loginAs(role: 'challenger' | 'voter'): Promise<Error | string> {
-        if (role == 'challenger') {
-            return this.challengerLogin();
-        } else {
-            return this.voterLogin();
-        }
     }
 
     logout(): Promise<Error | Success> {
-        throw new Error("Method not implemented.");
+        return auth.signOut().then(() => {
+            localStorage.clear();
+            return { message: 'Logged successfully' }
+        }).catch((e) => {
+            return Error(e)
+        })
     }
 
 }
