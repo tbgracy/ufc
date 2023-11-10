@@ -1,43 +1,33 @@
 import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { Success } from "../types/success";
 import { auth } from "./firebase";
-import { Challenger } from "../types/challenger";
-import { Voter } from "../types/voter";
+import { User } from "../types/user";
 
+import avatarPlaceholder from "../assets/images/avatar-placeholder.svg";
 
-export interface ILoginService {
+export interface IAuthService {
     loginWith(provider: 'github' | 'google'): Promise<Error | string>;
     logout(): Promise<Error | Success>;
 }
 
-export class MockLoginService implements ILoginService {
+export class MockAuthService implements IAuthService {
     async loginWith(provider: 'github' | 'google'): Promise<Error | string> {
-        let user: Challenger | Voter;
-        if (provider == 'github') {
-            user = {
-                name: '',
-                profileUrl: '',
-                profilePictureUrl: '',
-            }
-            localStorage.setItem('user', JSON.stringify(user))
-        } else {
-            user = {
-                name: '',
-                profileUrl: '',
-                profilePictureUrl: '',
-            }
+        const user: User = {
+            name: 'Tsierenana B. Gracy',
+            profilePictureUrl: avatarPlaceholder,
+            authProvider: provider,
         }
-
+        localStorage.setItem('user', JSON.stringify(user))
         return 'User logged in';
     }
 
     async logout(): Promise<Error | Success> {
         localStorage.clear();
-        return Error('');
+        return { message: 'Logout : success' };
     }
 }
 
-export class LoginService implements ILoginService {
+export class AuthService implements IAuthService {
     private providers = {
         'google': new GoogleAuthProvider(),
         'github': new GithubAuthProvider(),
@@ -45,6 +35,8 @@ export class LoginService implements ILoginService {
 
     async loginWith(provider: 'github' | 'google'): Promise<Error | string> {
         try {
+            console.log('logging in ... opening pupup ...');
+            
             const result = await signInWithPopup(auth, this.providers[provider])
             console.log(result);
             localStorage.setItem('user', JSON.stringify({

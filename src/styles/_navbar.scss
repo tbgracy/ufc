@@ -1,49 +1,85 @@
 @keyframes underlineAppear {
-    from {
-        transform: scale(0);
-        transform-origin: center;
+  from {
+    transform: scale(0);
+    transform-origin: center;
+  }
+
+  to {
+    transform-origin: center;
+    transform: scale(1);
+  }
+}
+
+.logged-in-action {
+  position: relative;
+
+  img {
+    width: 3rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: $border-width solid $accent-color;
+    object-fit: cover;
+
+    &:hover {
+      cursor: pointer;
     }
-    to {
-        transform-origin: center;
-        transform: scale(1);
+  }
+
+  section {
+    z-index: 10;
+    position: absolute;
+    width: max-content;
+    right: 0;
+    padding: 1rem;
+    background-color: $gray;
+    border-radius: $border-radius;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(10px);
+
+    p {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 1rem;
     }
+  }
 }
 
 nav {
   width: 80%;
   height: 80px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+
+  ul {
+    list-style: none;
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-  
-    ul {
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 300px;
-      
-      li.current-page::after {
-        content: '';
-        display: block;
-        position: absolute;
-        width: 80%;
-        margin-left: 10%;
-        border-bottom: $border-width solid $accent-color;
-        animation: underlineAppear 0.6s ease-in-out;
-      }
-  
-      li {
-        display: inline-block;
-        position: relative;
-  
-        a {
-          color: $white;
-          font-weight: bold;
-          text-decoration: none;
-        }
+    width: 300px;
+
+    li.current-page::after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 80%;
+      margin-left: 10%;
+      border-bottom: $border-width solid $accent-color;
+      animation: underlineAppear 0.6s ease-in-out;
+    }
+
+    li {
+      display: inline-block;
+      position: relative;
+
+      a {
+        color: $white;
+        font-weight: bold;
+        text-decoration: none;
       }
     }
   }
+}
