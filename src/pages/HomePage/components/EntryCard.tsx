@@ -1,5 +1,8 @@
+import { useAuthStore } from "../../../store/authStore";
 import { Entry } from "../../../types/entry"
 import { BiLinkExternal } from "react-icons/bi"
+import VotingSection from "./VotingSection";
+
 
 type EntryProps = {
     isLoading: boolean,
@@ -8,6 +11,7 @@ type EntryProps = {
 
 export default function EntryCard({ isLoading, entry }: EntryProps) {
     const className = isLoading ? "entry-card loading" : "entry-card";
+    const user = useAuthStore((state) => state.user);
 
     if (isLoading) {
         return <article className="entry-card loading"></article>
@@ -23,6 +27,7 @@ export default function EntryCard({ isLoading, entry }: EntryProps) {
             <a href={entry!.author.profileUrl} target="_blank">
                 <img src={entry!.author.profilePictureUrl} alt="" />
             </a>
+            {user && <VotingSection />}
         </div>
     </article>
 }
