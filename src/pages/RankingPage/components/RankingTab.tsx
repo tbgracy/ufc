@@ -1,9 +1,13 @@
-import { useState } from "react"
+import { Timeframe } from "../RankingPage";
 
-export default function RankingPage() {
-    const [timeframe, setTimeframe] = useState<'weekly' | 'all-time'>('weekly');
+type RankingPageProps = {
+    timeframe: 'weekly' | 'all-time',
+    onTabChange: (newTab: Timeframe) => void,
+}
+
+export default function RankingPage({ timeframe, onTabChange }: RankingPageProps) {
     function toggleTimeframe() {
-        setTimeframe(timeframe == 'weekly' ? 'all-time' : 'weekly')
+        onTabChange(timeframe == 'weekly' ? 'all-time' : 'weekly')
     }
 
     return <>
