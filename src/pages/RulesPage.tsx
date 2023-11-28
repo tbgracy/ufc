@@ -18,6 +18,10 @@ export default function RulesPage() {
             <p>Don't forget to have fun :D</p>
         </section>
         <section>
+            <h3>How points are calculated</h3>
+            <p>point = upvotes + lighthouse performance</p>
+        </section>
+        <section>
             <h3>Voters' rules</h3>
             <ol>
                 <li>Login</li>
