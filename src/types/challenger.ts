@@ -1,6 +1,5 @@
-export type Challenger = {
-    id?: string,
-    name: string,
-    profileUrl: string, // the github profile url like https://github.com/tbgracy
-    profilePictureUrl: string, // the profile picture url
+import { User } from "./user";
+
+export interface Challenger extends User {
+    profileUrl: string,
 }

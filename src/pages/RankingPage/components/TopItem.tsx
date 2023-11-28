@@ -1,9 +1,8 @@
-import { Challenger } from "../../../types/challenger";
-
 import crown from "../../../assets/images/crown.png";
+import { RankedUser } from "../../../types/rankedUser";
 
 type TopItemProps = {
-    challenger: Challenger,
+    challenger: RankedUser,
     rank: number,
 }
 

@@ -18,16 +18,19 @@ export class MockEntriesService implements IEntriesService {
                 name: 'Gracy Tsierenana',
                 profileUrl: '',
                 profilePictureUrl: '',
+                authProvider: 'google',
             },
             {
                 name: 'Glorio Tsierenana',
                 profileUrl: '',
                 profilePictureUrl: '',
+                authProvider: 'google',
             },
             {
                 name: 'Ferson Tsierenana',
                 profileUrl: '',
                 profilePictureUrl: '',
+                authProvider: 'google',
             }
         ];
 
