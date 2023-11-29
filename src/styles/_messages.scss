@@ -1,0 +1,30 @@
+@keyframes slideFromLeft {
+    from {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.error-message-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: .5rem;
+    position: fixed;
+    left: 0;
+    top: 0;
+    margin: 2rem;
+    z-index: 1000;
+
+    .error-message {
+        background-color: $red;
+        border-radius: $border-radius;
+        padding: .5rem 1rem;
+        animation: slideFromLeft .2s linear;
+    }
+}

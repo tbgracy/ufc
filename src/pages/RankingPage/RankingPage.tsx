@@ -11,7 +11,7 @@ export type Timeframe = 'weekly' | 'all-time';
 
 export default function RankingPage() {
     const [timeframe, setTimeframe] = useState<Timeframe>('weekly');
-    const setErrorMessage = useErrorMessageStore((state) => state.setMessage);
+    const setErrorMessage = useErrorMessageStore((state) => state.addMessage);
 
     const service = useContext(ServicesContext).ranking;
 

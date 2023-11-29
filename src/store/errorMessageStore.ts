@@ -1,26 +1,24 @@
 import { create } from 'zustand';
 
 type State = {
-    message?: string
+    messages: string[]
 }
 
 type Action = {
-    setMessage: (message: string) => void,
-    deleteMessage: () => void,
+    addMessage: (message: string) => void,
 }
 
 export const useErrorMessageStore = create<State & Action>((set) => {
-    function setMessage(message: string) {
-        set(() => ({ message: message }));
+    function addMessage(message: string) {
+        set((state) => ({ messages: [...state.messages, message] }));
 
         setTimeout(() => {
-            set(() => ({ message: undefined }))
-        }, 2000);
+            set((state) => ({ messages: [...state.messages.slice(0, -1)] }))
+        }, 3000);
     }
 
     return {
-        // setMessage: (message: string) => set(() => ({ message: message })),
-        setMessage: setMessage,
-        deleteMessage: () => set(() => ({ message: undefined })),
+        messages: [],
+        addMessage: addMessage
     }
 });
