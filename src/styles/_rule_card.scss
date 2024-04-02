@@ -1,0 +1,27 @@
+.rule-card {
+    background-color: $gray;
+    border-radius: $border-radius;
+    padding: 2.5rem 5rem;
+    text-align: justify;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+
+    &:hover {
+        border: 1px solid $white;
+        padding: calc(2.5rem - 1px) calc(5rem - 1px);
+    }
+
+    h3 {
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    p {
+        margin: 1rem auto;
+    }
+
+    ol li {
+        list-style-position: inside;
+    }
+}
