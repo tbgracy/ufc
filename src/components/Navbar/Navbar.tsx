@@ -25,7 +25,9 @@ export default function Navbar() {
     }
 
     return <nav>
-        <h1 className="logo">UFC</h1>
+        <Link to="/">
+            <h1 className="logo">UFC</h1>
+        </Link>
         <ul className="navlinks">
             <NavLink target="/" label="Home" isCurrent={currentPath === '/'} />
             <NavLink target="/ranking" label="Ranking" isCurrent={currentPath === '/ranking'} />
@@ -34,7 +36,7 @@ export default function Navbar() {
         {user == undefined
             ? (
                 <div className="action">
-                    <Link to='/login' > Register or login </Link>
+                    <Link to='/login'> Register or login </Link>
                 </div>
             ) : (
                 <UserAvatar user={user} onLogout={handleLogout} />

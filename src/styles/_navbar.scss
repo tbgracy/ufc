@@ -53,6 +53,11 @@ nav {
   align-items: center;
   margin-left: auto;
   margin-right: auto;
+  
+  a:has(.logo) {
+    text-decoration: none;
+    color: $white;
+  }
 
   ul {
     list-style: none;
