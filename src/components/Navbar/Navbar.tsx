@@ -1,5 +1,4 @@
-import { useLocation } from "react-router-dom";
-import Button from "../Button";
+import { Link, useLocation } from "react-router-dom";
 import NavLink from "./NavLink";
 import { useContext } from "react";
 import { ServicesContext } from "../../contexts";
@@ -13,10 +12,6 @@ export default function Navbar() {
 
     const user = useAuthStore((state) => state.user);
     const updateUser = useAuthStore((state) => state.updateUser);
-
-    const goTo = (path: string) => {
-        window.location.href = path;
-    };
 
     function handleLogout() {
         service.logout().then(result => {
@@ -39,7 +34,7 @@ export default function Navbar() {
         {user == undefined
             ? (
                 <div className="action">
-                    <Button label="Register or Login" onClick={() => goTo('/login')} />
+                    <Link to='/login' > Register or login </Link>
                 </div>
             ) : (
                 <UserAvatar user={user} onLogout={handleLogout} />
