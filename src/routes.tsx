@@ -1,31 +1,37 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RankingPage from "./pages/RankingPage";
 import RulesPage from "./pages/RulesPage";
-import Page from "./components/Layout";
 import GithubAuth from "./pages/GithubAuth";
+import Layout from "./components/Layout";
+import HomePage from "./pages/HomePage";
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Page content={<HomePage />} />
+    element: <Layout />,
+    children: [
+      {
+        path: '/',
+        element: <HomePage />
+      },
+      {
+        path: '/ranking',
+        element: <RankingPage />
+      },
+      {
+        path: '/rules',
+        element: <RulesPage />
+      },
+      {
+        path: '/login',
+        element: <LoginPage />
+      },
+      {
+        path: '/github-auth',
+        element: <GithubAuth />
+      }
+    ],
   },
-  {
-    path: '/ranking',
-    element: <Page content={<RankingPage />} />
-  },
-  {
-    path: '/rules',
-    element: <Page content={<RulesPage />} />
-  },
-  {
-    path: '/login',
-    element: <Page content={<LoginPage />} />
-  },
-  {
-    path: '/github-auth',
-    element: <Page content={<GithubAuth />} />
-  }
 ]);
