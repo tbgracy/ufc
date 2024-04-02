@@ -60,6 +60,9 @@ nav {
     justify-content: space-between;
     align-items: center;
     width: 300px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 
     li.current-page::after {
       content: '';
