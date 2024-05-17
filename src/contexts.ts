@@ -4,7 +4,7 @@ import EntriesService, { IEntriesService, MockEntriesService } from "./services/
 import { IAuthService, AuthService, MockAuthService } from "./services/authService";
 import { IRankingService, MockRankingService, RankingService } from "./services/api/rankingService";
 
-const inDevEnv = true;
+const inDevEnv = import.meta.env.VITE_DEV as string == '1' ? true : false;
 
 type ServicesContextType = {
     challenger: IChallengerService,
