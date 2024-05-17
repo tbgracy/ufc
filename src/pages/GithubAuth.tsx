@@ -12,7 +12,7 @@ export default function GithubAuth() {
         const searchParams = window.location.search;
         const code = searchParams.replace('?code=', '');
         if (code !== null) {
-            return service.registerChallenger(code);
+            return service.register(code);
         } else {
             throw Error('code not found');
         }

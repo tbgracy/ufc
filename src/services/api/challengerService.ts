@@ -5,22 +5,28 @@ import { db } from "../firebase";
 
 export interface IChallengerService {
     getAllChallengers(): Promise<Challenger[]>;
-    registerChallenger(githubCode: string): Promise<string | Error>;
+    register(githubCode: string): Promise<string | Error>;
+    unregister(): void;
 }
 
 export class MockChallengerService implements IChallengerService {
+    unregister(): void {
+        throw new Error("Method not implemented.");
+    }
     getAllChallengers(): Promise<Challenger[]> {
         throw new Error("Method not implemented.");
     }
-    registerChallenger(githubCode: string): Promise<string> {
+    register(githubCode: string): Promise<string> {
         console.log(githubCode);
-        
+
         throw new Error("Method not implemented.");
     }
-
 }
 
 export default class ChallengerService implements IChallengerService {
+    unregister(): void {
+        throw new Error("Method not implemented.");
+    }
 
     private async isChallengerAlreadyRegistered(name: string): Promise<boolean> {
         const challengers = await this.getAllChallengers();
@@ -45,6 +51,7 @@ export default class ChallengerService implements IChallengerService {
                 name: doc.data().name,
                 profileUrl: `https://github.com/${doc.data().name}`,
                 profilePictureUrl: doc.data().pictureUrl,
+                authProvider: doc.data().authProvider,
             }
 
             challengers.push(challenger);
@@ -53,7 +60,7 @@ export default class ChallengerService implements IChallengerService {
         return challengers;
     }
 
-    async registerChallenger(githubCode: string): Promise<string | Error> {
+    async register(githubCode: string): Promise<string | Error> {
         const token = await GithubAPIService.getToken(githubCode);
         const userInfo = await GithubAPIService.getUserInfo(token);
 
@@ -61,6 +68,7 @@ export default class ChallengerService implements IChallengerService {
             name: userInfo.login,
             profileUrl: `https://github.com/${userInfo.login}`,
             profilePictureUrl: userInfo.avatar_url,
+            authProvider: userInfo.authProvider,
         }
 
         try {

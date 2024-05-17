@@ -36,7 +36,6 @@ export class AuthService implements IAuthService {
     async loginWith(provider: 'github' | 'google'): Promise<Error | string> {
         try {
             console.log('logging in ... opening pupup ...');
-            
             const result = await signInWithPopup(auth, this.providers[provider])
             console.log(result);
             localStorage.setItem('user', JSON.stringify({
