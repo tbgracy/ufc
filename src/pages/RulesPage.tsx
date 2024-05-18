@@ -11,7 +11,7 @@ export default function RulesPage() {
             <ol>
                 <li>Register</li>
                 <li>Go to homepage to see the current design</li>
-                <li>Create a repository with the following pattern for every entry : <pre>ufc-w&lt;week-number&gt;[-anything-you-want];</pre></li>
+                <li>Create a repository with `ufc` in its name for every entry</li>
                 <li>Push your entry to the repository</li>
             </ol>
             <p>Don't forget to have fun :D</p>
