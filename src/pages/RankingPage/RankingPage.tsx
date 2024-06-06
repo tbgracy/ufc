@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import { ServicesContext } from "../../contexts";
+import { ServicesContext } from "../../app/contexts";
 
 import RankingTab from "./components/RankingTab";
 import TopThree from "./components/TopThree";
-import { useErrorMessageStore } from "../../store/errorMessageStore";
+import { useErrorMessageStore } from "../../app/errorMessageStore";
 
 export type Timeframe = 'weekly' | 'all-time';
 

@@ -1,8 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import NavLink from "./NavLink";
 import { useContext } from "react";
-import { ServicesContext } from "../../contexts";
-import { useAuthStore } from "../../store/authStore";
+import { ServicesContext } from "../../app/contexts";
+import { useAuthStore } from "../../app/authStore";
 import UserAvatar from "../UserAvatar";
 
 

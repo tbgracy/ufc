@@ -5,7 +5,7 @@ import EntryCard from "./EntryCard";
 
 import { Entry } from "../../../types/entry";
 import { useContext } from "react";
-import { ServicesContext } from "../../../contexts";
+import { ServicesContext } from "../../../app/contexts";
 
 export default function EntryList() {
     const service = useContext(ServicesContext).entry;

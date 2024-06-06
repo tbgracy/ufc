@@ -2,7 +2,7 @@ import { ClipLoader } from "react-spinners";
 import { useQuery } from "@tanstack/react-query";
 
 import { useContext } from "react";
-import { ServicesContext } from "../contexts";
+import { ServicesContext } from "../app/contexts";
 
 
 export default function GithubAuth() {

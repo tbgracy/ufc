@@ -1,4 +1,4 @@
-import { useAuthStore } from "../../../store/authStore";
+import { useAuthStore } from "../../../app/authStore";
 import { Entry } from "../../../types/entry"
 import { BiLinkExternal } from "react-icons/bi"
 import VotingSection from "./VotingSection";
