@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import LoginPage from "../pages/LoginPage/LoginPage";
+import LoginPage from "../pages/AuthPage/AuthPage";
 import RankingPage from "../pages/RankingPage";
 import RulesPage from "../pages/RulesPage/RulesPage";
 import GithubAuth from "../pages/GithubAuth/GithubAuth";

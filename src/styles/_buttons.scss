@@ -19,9 +19,15 @@ button, nav .action a {
     margin-left: auto;
     margin-right: auto;
     
-    &:hover {
+    &:hover:not(:disabled) {
         @include basicTransition;
         background-color: $dark;
         color: white;
+    }
+
+    &:disabled {
+        background-color: gray;
+        border-color: $gray;
+        cursor: auto;
     }
 }

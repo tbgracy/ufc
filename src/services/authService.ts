@@ -4,14 +4,15 @@ import { auth } from "./firebase";
 import { User } from "../types/user";
 
 import avatarPlaceholder from "../assets/images/avatar-placeholder.svg";
+import { AuthProvider } from "../types/authProvider";
 
 export interface IAuthService {
-    loginWith(provider: 'github' | 'google'): Promise<Error | string>;
+    loginWith(provider: AuthProvider): Promise<Error | string>;
     logout(): Promise<Error | Success>;
 }
 
 export class MockAuthService implements IAuthService {
-    async loginWith(provider: 'github' | 'google'): Promise<Error | string> {
+    async loginWith(provider: AuthProvider): Promise<Error | string> {
         const user: User = {
             name: 'Tsierenana B. Gracy',
             profilePictureUrl: avatarPlaceholder,
@@ -33,7 +34,7 @@ export class AuthService implements IAuthService {
         'github': new GithubAuthProvider(),
     }
 
-    async loginWith(provider: 'github' | 'google'): Promise<Error | string> {
+    async loginWith(provider: AuthProvider): Promise<Error | string> {
         try {
             console.log('logging in ... opening pupup ...');
             const result = await signInWithPopup(auth, this.providers[provider])

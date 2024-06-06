@@ -1,27 +1,19 @@
 import { Link, useLocation } from "react-router-dom";
-import NavLink from "./NavLink";
-import { useContext } from "react";
-import { ServicesContext } from "../../app/contexts";
-import { useAuthStore } from "../../app/authStore";
-import UserAvatar from "../UserAvatar";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
+import { logout } from '../../pages/AuthPage/authSlice'
+
+import NavLink from "./NavLink";
+import UserAvatar from "../UserAvatar";
 
 export default function Navbar() {
     const currentPath = useLocation().pathname;
-    const service = useContext(ServicesContext).login;
+    const dispatch = useAppDispatch();
 
-    const user = useAuthStore((state) => state.user);
-    const updateUser = useAuthStore((state) => state.updateUser);
+    const user = useAppSelector(state => state.auth.user)
 
     function handleLogout() {
-        service.logout().then(result => {
-            console.log(result);
-            if (result instanceof Error) {
-                console.log(result);
-            } else {
-                updateUser();
-            }
-        });
+        dispatch(logout());
     }
 
     return <nav>

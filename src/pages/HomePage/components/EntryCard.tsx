@@ -1,7 +1,7 @@
-import { useAuthStore } from "../../../app/authStore";
 import { Entry } from "../../../types/entry"
 import { BiLinkExternal } from "react-icons/bi"
 import VotingSection from "./VotingSection";
+import { useAppSelector } from "../../../app/hooks";
 
 
 type EntryProps = {
@@ -11,7 +11,7 @@ type EntryProps = {
 
 export default function EntryCard({ isLoading, entry }: EntryProps) {
     const className = isLoading ? "entry-card loading" : "entry-card";
-    const user = useAuthStore((state) => state.user);
+    const user = useAppSelector(state => state.auth.user)
 
     if (isLoading) {
         return <article className="entry-card loading"></article>
