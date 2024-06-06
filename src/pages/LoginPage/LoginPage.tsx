@@ -1,7 +1,7 @@
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { useContext } from "react";
-import { ServicesContext } from "../app/contexts";
-import { useAuthStore } from "../app/authStore";
+import { ServicesContext } from "../../app/contexts";
+import { useAuthStore } from "../../app/authStore";
 
 export default function LoginPage() {
     const service = useContext(ServicesContext).login;
