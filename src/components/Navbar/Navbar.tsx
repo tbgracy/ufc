@@ -1,16 +1,27 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
-import { logout } from '../../pages/AuthPage/authSlice'
+import { login, logout } from './authSlice'
 
 import NavLink from "./NavLink";
 import UserAvatar from "../UserAvatar";
+import { FaGithub } from "react-icons/fa";
+import { AuthProvider } from "../../types/authProvider";
 
 export default function Navbar() {
     const currentPath = useLocation().pathname;
     const dispatch = useAppDispatch();
-
     const user = useAppSelector(state => state.auth.user)
+    const loginStatus = useAppSelector(state => state.auth.status)
+    const navigate = useNavigate()
+    
+    const canLogin = loginStatus === 'loggedOut'
+
+    function handleLogin(provider: AuthProvider) {
+        dispatch(login(provider)).then(() => {
+            navigate('/')
+        })
+    }
 
     function handleLogout() {
         dispatch(logout());
@@ -27,11 +38,12 @@ export default function Navbar() {
         </ul>
         {user == undefined
             ? (
-                <div className="action">
-                    <Link to='/login'> Register or login </Link>
-                </div>
+                <button className="action" disabled={!canLogin} onClick={() => handleLogin('github')}>
+                    {loginStatus === 'loading' ? "Login in ... " : (<><FaGithub /> Login with Github </>)}
+                </button>
             ) : (
                 <UserAvatar user={user} onLogout={handleLogout} />
-            )}
-    </nav>;
+            )
+        }
+    </nav >;
 }

@@ -19,6 +19,7 @@ export class MockAuthService implements IAuthService {
             authProvider: provider,
         }
         localStorage.setItem('user', JSON.stringify(user))
+        await new Promise((resolve) => setTimeout(resolve, 2000))
         return 'User logged in';
     }
 
