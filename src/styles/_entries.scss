@@ -43,6 +43,10 @@ $faded-accent-color: #81fe8756;
         overflow: hidden;
         position: relative;
 
+        &:hover .entry-info a {
+            display: block;
+        }
+
         &.loading {
             background-image: linear-gradient(90deg, $faded-accent-color, $placeholder-color, $placeholder-color, $faded-accent-color);
             background-size: 200%;
@@ -69,6 +73,8 @@ $faded-accent-color: #81fe8756;
                 font-size: larger;
                 padding: .5rem;
                 color: $dark;
+
+                display: none;
 
                 &:hover {
                     color: $accent-color;
