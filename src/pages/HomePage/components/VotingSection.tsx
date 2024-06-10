@@ -1,8 +1,21 @@
-import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa";
+import { BiHeart } from "react-icons/bi";
+import { Entry } from "../../../types/entry";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { voteEntry } from "../entriesSlice";
 
-export default function VotingSection() {
-    return <div className="voting">
-        <FaRegThumbsUp size={24} />
-        <FaRegThumbsDown size={24} />
+export default function VotingSection({ entry }: { entry: Entry }) {
+    const dispatch = useAppDispatch()
+    const votingStatus = useAppSelector(state => state.entries.votingStatus)
+    const canVote = votingStatus === 'idle'
+
+    const className = `voting ${entry.voted ? 'voted' : ''} ${canVote ? '' : 'disabled'}`
+
+    function handleVotingIconClick() {
+        dispatch(voteEntry(entry.id))
+    }
+
+    return <div className={className}>
+        <BiHeart size={24} onClick={canVote ? handleVotingIconClick : () => { }} />
+        {entry.voteCount}
     </div>
 }

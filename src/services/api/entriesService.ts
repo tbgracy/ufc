@@ -7,6 +7,7 @@ import { isFromThisWeek, getRandomNumberBetween } from "../../utils";
 
 export interface IEntriesService {
     getWeeksEntries(): Promise<Entry[] | Error>;
+    vote(userId: string, entryId: string): Promise<Entry | Error>;
 }
 
 export class MockEntriesService implements IEntriesService {
@@ -39,7 +40,8 @@ export class MockEntriesService implements IEntriesService {
                 id: `${i}`,
                 url: 'https://gracy.com/',
                 homepage: 'github.com',
-                author: challengers[getRandomNumberBetween(0, challengers.length - 1)]
+                author: challengers[getRandomNumberBetween(0, challengers.length - 1)],
+                voteCount: getRandomNumberBetween(0, 100),
             }
 
             entries.push(entry);
@@ -52,6 +54,32 @@ export class MockEntriesService implements IEntriesService {
         })
     }
 
+    async vote(userId: string, entryId: string): Promise<Entry | Error> {
+        console.log('user id : ', userId);
+
+        const votedEntry: Entry = {
+            id: entryId,
+            url: '',
+            homepage: '',
+            author: {
+
+                name: 'Ferson Tsierenana',
+                profileUrl: '',
+                profilePictureUrl: '',
+                authProvider: 'google',
+
+            },
+            voteCount: getRandomNumberBetween(0, 100),
+            voted: true,
+        }
+
+        return new Promise((resolve) => {
+            entryId
+            setTimeout(() => {
+                resolve(votedEntry)
+            }, 1000)
+        })
+    }
 }
 
 export default class EntriesService implements IEntriesService {
@@ -59,6 +87,10 @@ export default class EntriesService implements IEntriesService {
 
     constructor(challengerService: IChallengerService) {
         this.challengerService = challengerService;
+    }
+
+    vote(userId: string, entryId: string): Promise<Entry | Error> {
+        throw new Error("Method not implemented.");
     }
 
     async getWeeksEntries(): Promise<Entry[] | Error> {
@@ -84,6 +116,7 @@ export default class EntriesService implements IEntriesService {
                         url: repo.url,
                         homepage: repo.homepage,
                         author: challenger,
+                        voteCount: 0,
                     }
 
                     entries.push(entry);

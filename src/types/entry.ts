@@ -5,4 +5,6 @@ export type Entry = {
     url: string;
     homepage: string;
     author: Challenger;
+    voteCount: number;
+    voted?: boolean;
 }
