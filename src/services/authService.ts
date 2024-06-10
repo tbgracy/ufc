@@ -1,11 +1,14 @@
 import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { Success } from "../types/success";
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
 import { User } from "../types/user";
 
 import avatarPlaceholder from "../assets/images/avatar-placeholder.svg";
 import { AuthProvider } from "../types/authProvider";
 import { nanoid } from "@reduxjs/toolkit";
+import { IChallengerService } from "./api/challengerService";
+import { Challenger } from "../types/challenger";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
 
 export interface IAuthService {
     loginWith(provider: AuthProvider): Promise<Error | string>;
@@ -13,13 +16,23 @@ export interface IAuthService {
     getLocalUser(): User | undefined;
 }
 
+const getLocalUser = (): User | undefined => {
+    try {
+        const user = JSON.parse(localStorage.getItem('user')!)
+        return user
+    } catch {
+        return undefined
+    }
+}
+
 export class MockAuthService implements IAuthService {
     async loginWith(provider: AuthProvider): Promise<Error | string> {
+        console.log(`Login in with ${provider}`);
+
         const user: User = {
             id: nanoid(),
             name: 'Tsierenana B. Gracy',
             profilePictureUrl: avatarPlaceholder,
-            authProvider: provider,
         }
         localStorage.setItem('user', JSON.stringify(user))
         await new Promise((resolve) => setTimeout(resolve, 2000))
@@ -32,31 +45,52 @@ export class MockAuthService implements IAuthService {
     }
 
     getLocalUser(): User | undefined {
-        try {
-            const user = JSON.parse(localStorage.getItem('user')!)
-            return user
-        } catch {
-            return undefined
-        }
+        return getLocalUser()
     }
 }
 
 export class AuthService implements IAuthService {
+    private challengerService: IChallengerService;
+
+    constructor(challengerService: IChallengerService) {
+        this.challengerService = challengerService;
+    }
+
     private providers = {
         'google': new GoogleAuthProvider(),
         'github': new GithubAuthProvider(),
     }
 
+    private async register(challenger: Challenger): Promise<void> {
+        await addDoc(collection(db, "challengers"), { ...challenger, createdAt: Timestamp.now() })
+    }
+
+    private saveToLocalStorage(challenger: Challenger) {
+        localStorage.setItem('user', JSON.stringify(challenger))
+    }
+
     async loginWith(provider: AuthProvider): Promise<Error | string> {
         try {
             console.log('logging in ... opening pupup ...');
-            const result = await signInWithPopup(auth, this.providers[provider])
-            console.log(result);
-            localStorage.setItem('user', JSON.stringify({
+
+            const result = await signInWithPopup(auth, this.providers[provider]);
+
+            const user: Challenger = {
                 id: result.user.uid,
-                name: result.user.displayName,
-                profilePictureUrl: result.user.photoURL,
-            }))
+                name: result.user.displayName!,
+                profilePictureUrl: result.user.photoURL!,
+            }
+
+            const challengers = await this.challengerService.getAllChallengers();
+
+            const alreadyRegistered = Boolean(challengers.find(e => e.id === result.user.uid))
+
+            if (!alreadyRegistered) {
+                this.register(user)
+            }
+
+            this.saveToLocalStorage(user)
+
             return `User ${result.user.displayName} is successfully logged in.`;
         } catch (e) {
             console.error(e);
@@ -75,7 +109,7 @@ export class AuthService implements IAuthService {
     }
 
     getLocalUser(): User | undefined {
-        throw Error('Unimplemented')
+        return getLocalUser()
     }
 
 }

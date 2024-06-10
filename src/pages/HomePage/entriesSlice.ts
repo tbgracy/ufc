@@ -17,7 +17,7 @@ const initialState: EntriesState = {
 }
 
 const fetchEntries = createAsyncThunk('entries/fetchEntries', async () => {
-    const response = await service.entry.getWeeksEntries();
+    const response = await service.entry.getEntries();
     if (response instanceof Error) {
         return 'error'
     } else {

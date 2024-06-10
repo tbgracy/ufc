@@ -13,10 +13,12 @@ type ServicesContextType = {
     ranking: IRankingService,
 }
 
+const challengerService = inDevEnv ? new MockChallengerService() : new ChallengerService()
+
 export const initialValue = {
     challenger: inDevEnv ? new MockChallengerService() : new ChallengerService(),
-    entry: inDevEnv ? new MockEntriesService() : new EntriesService(inDevEnv ? new MockChallengerService() : new ChallengerService()),
-    login: inDevEnv ? new MockAuthService() : new AuthService(),
+    entry: inDevEnv ? new MockEntriesService() : new EntriesService(challengerService),
+    login: inDevEnv ? new MockAuthService() : new AuthService(challengerService),
     ranking: inDevEnv ? new MockRankingService() : new RankingService(),
 }
 

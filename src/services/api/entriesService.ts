@@ -6,32 +6,26 @@ import { Challenger } from "../../types/challenger";
 import { isFromThisWeek, getRandomNumberBetween } from "../../utils";
 
 export interface IEntriesService {
-    getWeeksEntries(): Promise<Entry[] | Error>;
+    getEntries(): Promise<Entry[] | Error>;
     vote(userId: string, entryId: string): Promise<Entry | Error>;
 }
 
 export class MockEntriesService implements IEntriesService {
-    async getWeeksEntries(): Promise<Entry[] | Error> {
+    async getEntries(): Promise<Entry[] | Error> {
         const entries: Entry[] = [];
 
         const challengers: Challenger[] = [
             {
                 name: 'Gracy Tsierenana',
-                profileUrl: '',
                 profilePictureUrl: '',
-                authProvider: 'google',
             },
             {
                 name: 'Glorio Tsierenana',
-                profileUrl: '',
                 profilePictureUrl: '',
-                authProvider: 'google',
             },
             {
                 name: 'Ferson Tsierenana',
-                profileUrl: '',
                 profilePictureUrl: '',
-                authProvider: 'google',
             }
         ];
 
@@ -62,11 +56,8 @@ export class MockEntriesService implements IEntriesService {
             url: '',
             homepage: '',
             author: {
-
                 name: 'Ferson Tsierenana',
-                profileUrl: '',
                 profilePictureUrl: '',
-                authProvider: 'google',
 
             },
             voteCount: getRandomNumberBetween(0, 100),
@@ -89,11 +80,11 @@ export default class EntriesService implements IEntriesService {
         this.challengerService = challengerService;
     }
 
-    vote(userId: string, entryId: string): Promise<Entry | Error> {
+    async vote(userId: string, entryId: string): Promise<Entry | Error> {
         throw new Error("Method not implemented.");
     }
 
-    async getWeeksEntries(): Promise<Entry[] | Error> {
+    async getEntries(): Promise<Entry[] | Error> {
         const entries: Entry[] = [];
 
         const challengers: Challenger[] = await this.challengerService!.getAllChallengers();

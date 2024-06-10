@@ -36,7 +36,6 @@ export default class ChallengerService implements IChallengerService {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -47,11 +46,9 @@ export default class ChallengerService implements IChallengerService {
 
         querySnapshot.forEach(async (doc) => {
             const challenger: Challenger = {
-                id: doc.id,
+                id: doc.data().id,
                 name: doc.data().name,
-                profileUrl: `https://github.com/${doc.data().name}`,
                 profilePictureUrl: doc.data().pictureUrl,
-                authProvider: doc.data().authProvider,
             }
 
             challengers.push(challenger);
@@ -66,9 +63,7 @@ export default class ChallengerService implements IChallengerService {
 
         const user: Challenger = {
             name: userInfo.login,
-            profileUrl: `https://github.com/${userInfo.login}`,
             profilePictureUrl: userInfo.avatar_url,
-            authProvider: userInfo.authProvider,
         }
 
         try {
