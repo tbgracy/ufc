@@ -10,7 +10,7 @@ type AuthState = {
 
 const initialState: AuthState = {
     status: 'loggedOut',
-    user: undefined,
+    user: service.login.getLocalUser(),
 }
 
 const login = createAsyncThunk('auth/login', async (provider: AuthProvider) => {
@@ -37,8 +37,7 @@ const authSlice = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder
-            .addCase(login.fulfilled, (state, action) => {
-                console.log(action.payload);
+            .addCase(login.fulfilled, (state) => {
                 const user = JSON.parse(localStorage.getItem('user')!);
                 state.user = user;
                 state.status = 'loggedIn'

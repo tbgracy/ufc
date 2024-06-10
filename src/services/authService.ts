@@ -5,15 +5,18 @@ import { User } from "../types/user";
 
 import avatarPlaceholder from "../assets/images/avatar-placeholder.svg";
 import { AuthProvider } from "../types/authProvider";
+import { nanoid } from "@reduxjs/toolkit";
 
 export interface IAuthService {
     loginWith(provider: AuthProvider): Promise<Error | string>;
     logout(): Promise<Error | Success>;
+    getLocalUser(): User | undefined;
 }
 
 export class MockAuthService implements IAuthService {
     async loginWith(provider: AuthProvider): Promise<Error | string> {
         const user: User = {
+            id: nanoid(),
             name: 'Tsierenana B. Gracy',
             profilePictureUrl: avatarPlaceholder,
             authProvider: provider,
@@ -26,6 +29,15 @@ export class MockAuthService implements IAuthService {
     async logout(): Promise<Error | Success> {
         localStorage.clear();
         return { message: 'Logout : success' };
+    }
+
+    getLocalUser(): User | undefined {
+        try {
+            const user = JSON.parse(localStorage.getItem('user')!)
+            return user
+        } catch {
+            return undefined
+        }
     }
 }
 
@@ -53,13 +65,17 @@ export class AuthService implements IAuthService {
 
     }
 
-    logout(): Promise<Error | Success> {
+    async logout(): Promise<Error | Success> {
         return auth.signOut().then(() => {
             localStorage.clear();
             return { message: 'Logged successfully' }
         }).catch((e) => {
             return Error(e)
         })
+    }
+
+    getLocalUser(): User | undefined {
+        throw Error('Unimplemented')
     }
 
 }
