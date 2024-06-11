@@ -5,7 +5,7 @@ type RankingPageProps = {
     onTabChange: (newTab: Timeframe) => void,
 }
 
-export default function RankingPage({ timeframe, onTabChange }: RankingPageProps) {
+export default function RankingTab({ timeframe, onTabChange }: RankingPageProps) {
     function toggleTimeframe() {
         onTabChange(timeframe == 'weekly' ? 'all-time' : 'weekly')
     }
