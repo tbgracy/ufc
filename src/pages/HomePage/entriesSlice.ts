@@ -3,17 +3,23 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { initialValue as service } from "../../app/contexts";
 import { Entry } from "../../types/entry";
 import { RootState } from "../../app/store";
+import { Timeframe } from "../../types/timeframe";
+import { isFromThisWeek } from "../../utils";
 
 type EntriesState = {
     status: 'initial' | 'loading' | 'succeeded' | 'voting'
     votingStatus: 'voting' | 'idle'
+    timeframe: Timeframe
     entries: Entry[]
+    allEntries: Entry[]
 }
 
 const initialState: EntriesState = {
     status: 'initial',
     votingStatus: 'idle',
-    entries: []
+    timeframe: 'weekly',
+    entries: [],
+    allEntries: [],
 }
 
 const fetchEntries = createAsyncThunk('entries/fetchEntries', async () => {
@@ -48,7 +54,14 @@ const voteEntry = createAsyncThunk<Entry | string, string, { state: RootState }>
 const entriesSlice = createSlice({
     name: 'entries',
     initialState,
-    reducers: {},
+    reducers: {
+        toggleTimeframe: (state) => {
+            state.timeframe = state.timeframe === 'weekly' ? 'all-time' : 'weekly'
+            state.entries = state.timeframe === 'weekly'
+                ? state.allEntries.filter(e => isFromThisWeek(new Date(e.createdAt!)))
+                : state.allEntries
+        }
+    },
     extraReducers(builder) {
         builder
             .addCase(fetchEntries.pending, (state) => { state.status = 'loading' })
@@ -58,7 +71,10 @@ const entriesSlice = createSlice({
                     state.status = 'succeeded'
                 } else {
                     state.status = 'succeeded'
-                    state.entries = action.payload as Entry[]
+                    state.allEntries = action.payload as Entry[]
+                    state.entries = state.timeframe === 'weekly'
+                        ? state.allEntries.filter(e => isFromThisWeek(new Date(e.createdAt!)))
+                        : state.allEntries
                 }
             })
             .addCase(voteEntry.fulfilled, (state, action) => {
@@ -81,5 +97,7 @@ const entriesSlice = createSlice({
 })
 
 export { fetchEntries, voteEntry }
+
+export const { toggleTimeframe } = entriesSlice.actions
 
 export default entriesSlice.reducer
