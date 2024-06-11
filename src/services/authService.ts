@@ -31,7 +31,7 @@ export class MockAuthService implements IAuthService {
 
         const user: User = {
             id: nanoid(),
-            name: 'Tsierenana B. Gracy',
+            fullName: 'Tsierenana B. Gracy',
             profilePictureUrl: avatarPlaceholder,
         }
         localStorage.setItem('user', JSON.stringify(user))
@@ -69,15 +69,24 @@ export class AuthService implements IAuthService {
         localStorage.setItem('user', JSON.stringify(challenger))
     }
 
+    private async getGithubUsername(numericId: string): Promise<string> {
+        const response = await fetch(`https://api.github.com/user/${numericId}`)
+        const parsedResponse = await response.json()
+        return parsedResponse.login
+    }
+
     async loginWith(provider: AuthProvider): Promise<Error | string> {
         try {
             console.log('logging in ... opening pupup ...');
 
             const result = await signInWithPopup(auth, this.providers[provider]);
 
+            const username = (await this.getGithubUsername(result.user.providerData[0].uid))
+
             const user: Challenger = {
                 id: result.user.uid,
-                name: result.user.displayName!,
+                fullName: result.user.displayName!,
+                username,
                 profilePictureUrl: result.user.photoURL!,
             }
 

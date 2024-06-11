@@ -17,7 +17,7 @@ export default function EntryCard({ isLoading, entry }: EntryProps) {
 
     return <article className={className}>
         <div className="entry-info">
-            {/* <img src={`//image.thum.io/get/${entry?.url}`} alt="preview" /> */}
+            <img src={`//image.thum.io/get/${entry?.homepage}`} alt="preview" />
             <img src='#' alt="preview" />
             <a href={entry?.homepage} target="_blank"><BiLinkExternal /></a>
         </div>
@@ -25,7 +25,7 @@ export default function EntryCard({ isLoading, entry }: EntryProps) {
             <a href={entry!.author.profileUrl} target="_blank">
                 <img src={entry!.author.profilePictureUrl} alt="" />
             </a>
-            <p>{entry!.author.name}</p>
+            <p>{entry!.author.fullName}</p>
             <VotingSection entry={entry!} />
         </div>
     </article>

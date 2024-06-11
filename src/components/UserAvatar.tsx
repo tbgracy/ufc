@@ -13,7 +13,7 @@ export default function UserAvatar({ user, onLogout }: { user: User, onLogout: (
 
 function UserActions({ user, onLogout }: { user: User, onLogout: () => void }) {
     return <section>
-        <p>{user.name}</p>
+        <p>{user.fullName}</p>
         <Button label="Logout" onClick={onLogout} />
     </section>
 }

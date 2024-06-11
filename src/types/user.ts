@@ -1,5 +1,6 @@
 export type User = {
     id?: string,
-    name: string,
+    fullName: string,
     profilePictureUrl: string, // the profile picture url
+    username?: string,
 }

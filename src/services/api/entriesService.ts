@@ -1,9 +1,10 @@
-import GithubAPIService from "../githubApi";
 import { IChallengerService } from "./challengerService";
 
 import { Entry } from "../../types/entry";
 import { Challenger } from "../../types/challenger";
-import { isFromThisWeek, getRandomNumberBetween } from "../../utils";
+import { getRandomNumberBetween } from "../../utils";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 
 export interface IEntriesService {
     getEntries(): Promise<Entry[] | Error>;
@@ -16,15 +17,15 @@ export class MockEntriesService implements IEntriesService {
 
         const challengers: Challenger[] = [
             {
-                name: 'Gracy Tsierenana',
+                fullName: 'Gracy Tsierenana',
                 profilePictureUrl: '',
             },
             {
-                name: 'Glorio Tsierenana',
+                fullName: 'Glorio Tsierenana',
                 profilePictureUrl: '',
             },
             {
-                name: 'Ferson Tsierenana',
+                fullName: 'Ferson Tsierenana',
                 profilePictureUrl: '',
             }
         ];
@@ -56,7 +57,7 @@ export class MockEntriesService implements IEntriesService {
             url: '',
             homepage: '',
             author: {
-                name: 'Ferson Tsierenana',
+                fullName: 'Ferson Tsierenana',
                 profilePictureUrl: '',
 
             },
@@ -85,35 +86,22 @@ export default class EntriesService implements IEntriesService {
     }
 
     async getEntries(): Promise<Entry[] | Error> {
+        const challengers: Challenger[] = await this.challengerService!.getAllChallengers();
+        
         const entries: Entry[] = [];
 
-        const challengers: Challenger[] = await this.challengerService!.getAllChallengers();
-        for (const challenger of challengers) {
-            const repos = await GithubAPIService.getRepos(challenger.name);
+        const querySnapshot = await getDocs(collection(db, "entries"));
 
-            const thisWeeksRepo = repos.filter(repo => {
-                const createdThisWeek: boolean = isFromThisWeek(new Date(repo.created_at));
-                const hasUfcInName: boolean = repo.name.includes('ufc');
-
-                return createdThisWeek && hasUfcInName;
-            });
-
-            if (thisWeeksRepo.length === 0) { continue; }
-            else {
-                thisWeeksRepo.forEach((repo) => {
-
-                    const entry: Entry = {
-                        id: challenger.id ?? '',
-                        url: repo.url,
-                        homepage: repo.homepage,
-                        author: challenger,
-                        voteCount: 0,
-                    }
-
-                    entries.push(entry);
-                })
+        querySnapshot.forEach(async (doc) => {
+            const entry: Entry = {
+                id: doc.data().id,
+                url: doc.data().url,
+                homepage: doc.data().homepage,
+                author: challengers.find(e => e.username === doc.data().author)!,
+                voteCount: 0,
             }
-        }
+            entries.push(entry)
+        })
 
         return entries;
     }
