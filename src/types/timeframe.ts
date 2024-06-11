@@ -1,0 +1,1 @@
+export type Timeframe = 'weekly' | 'all-time';

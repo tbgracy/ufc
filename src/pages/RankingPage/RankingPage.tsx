@@ -6,8 +6,7 @@ import { ServicesContext } from "../../app/contexts";
 import RankingTab from "./components/RankingTab";
 import TopThree from "./components/TopThree";
 import { useErrorMessageStore } from "../../app/errorMessageStore";
-
-export type Timeframe = 'weekly' | 'all-time';
+import { Timeframe } from "../../types/timeframe";
 
 export default function RankingPage() {
     const [timeframe, setTimeframe] = useState<Timeframe>('weekly');

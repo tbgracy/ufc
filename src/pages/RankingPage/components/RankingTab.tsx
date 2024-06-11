@@ -1,4 +1,4 @@
-import { Timeframe } from "../RankingPage";
+import { Timeframe } from "../../../types/timeframe"
 
 type RankingPageProps = {
     timeframe: 'weekly' | 'all-time',
