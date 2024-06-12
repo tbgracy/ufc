@@ -81,9 +81,6 @@ export class AuthService implements IAuthService {
             
             const result = await signInWithPopup(auth, this.providers[provider]);
 
-            // update entry list
-            fetch('https://ufc-github-auth.onrender.com/update-entries')
-            
             const username = (await this.getGithubUsername(result.user.providerData[0].uid))
 
             const user: Challenger = {
