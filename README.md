@@ -4,9 +4,16 @@
 
 A weekly frontend challenge to improve your skills in HTML, CSS and JavaScript.
 
-NB: This project is mainly for React/TS learning purpose
 
-## How to participate
+## 🤔 Why
+
+Me and some friends wanted to practice our frontend coding skills and decide
+to take one design to life every week. Along that, we needed an automatic accountability
+system that could also motivate us to give our best. So I thought of a website were we can
+browse all participant's entries and eventually vote for one. It was also a good excuse for
+me to practice and learn React at the same time.
+
+## 🙋 How to participate
 
 Go to [dot.com](dot.com). Login with your github account.
 Create a repository with the following pattern for every entry : 
