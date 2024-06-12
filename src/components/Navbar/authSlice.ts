@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { initialValue as service } from "../../app/contexts";
 import { AuthProvider } from "../../types/authProvider";
 import { User } from "../../types/user";
+import { AppDispatch } from "../../app/store";
+import { fetchEntries } from "../../pages/HomePage/entriesSlice";
 
 type AuthState = {
     status: 'loggedIn' | 'loggedOut' | 'loading',
@@ -13,20 +15,30 @@ const initialState: AuthState = {
     user: service.login.getLocalUser(),
 }
 
-const login = createAsyncThunk('auth/login', async (provider: AuthProvider) => {
+const login = createAsyncThunk<
+    string,
+    AuthProvider,
+    { dispatch: AppDispatch }
+>('auth/login', async (provider, { dispatch }) => {
     const response = await service.login.loginWith(provider)
     if (response instanceof Error) {
         return 'error'
     } else {
+        dispatch(fetchEntries())
         return response
     }
 })
 
-const logout = createAsyncThunk('auth/logout', async () => {
+const logout = createAsyncThunk<
+    string,
+    void,
+    { dispatch: AppDispatch }
+>('auth/logout', async (_, { dispatch }) => {
     const response = await service.login.logout()
     if (response instanceof Error) {
         return 'error'
     } else {
+        dispatch(fetchEntries())
         return 'success'
     }
 })

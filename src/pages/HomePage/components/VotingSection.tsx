@@ -6,7 +6,8 @@ import { voteEntry } from "../entriesSlice";
 export default function VotingSection({ entry }: { entry: Entry }) {
     const dispatch = useAppDispatch()
     const votingStatus = useAppSelector(state => state.entries.votingStatus)
-    const canVote = votingStatus === 'idle'
+    const user = useAppSelector(state => state.auth.user)
+    const canVote = votingStatus === 'idle' && Boolean(user)
 
     const className = `voting ${entry.voted ? 'voted' : ''} ${canVote ? '' : 'disabled'}`
 
