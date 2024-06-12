@@ -36,11 +36,13 @@ const voteEntry = createAsyncThunk<Entry | string, string, { state: RootState }>
     async (entryId: string, optionals) => {
 
         const userId = optionals.getState().auth.user?.id
+        
 
         if (userId === undefined) {
             console.log('user not defined');
             throw Error()
         }
+
 
         const response = await service.entry.vote(userId, entryId)
 
@@ -79,9 +81,9 @@ const entriesSlice = createSlice({
             })
             .addCase(voteEntry.fulfilled, (state, action) => {
                 // TODO : Check if error or not
+                
                 const entry = action.payload as Entry
                 const votedEntry = state.entries.find(e => e.id === entry.id)
-
                 votedEntry!.voteCount = entry.voteCount
                 votedEntry!.voted = entry.voted
                 state.votingStatus = 'idle'
