@@ -1,13 +1,12 @@
 import { useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import { ServicesContext } from "../../contexts";
+import { ServicesContext } from "../../app/contexts";
 
 import RankingTab from "./components/RankingTab";
 import TopThree from "./components/TopThree";
-import { useErrorMessageStore } from "../../store/errorMessageStore";
-
-export type Timeframe = 'weekly' | 'all-time';
+import { useErrorMessageStore } from "../../app/errorMessageStore";
+import { Timeframe } from "../../types/timeframe";
 
 export default function RankingPage() {
     const [timeframe, setTimeframe] = useState<Timeframe>('weekly');

@@ -1,27 +1,30 @@
-import { Link, useLocation } from "react-router-dom";
-import NavLink from "./NavLink";
-import { useContext } from "react";
-import { ServicesContext } from "../../contexts";
-import { useAuthStore } from "../../store/authStore";
-import UserAvatar from "../UserAvatar";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
+import { login, logout } from './authSlice'
+
+import NavLink from "./NavLink";
+import UserAvatar from "../UserAvatar";
+import { FaGithub } from "react-icons/fa";
+import { AuthProvider } from "../../types/authProvider";
 
 export default function Navbar() {
     const currentPath = useLocation().pathname;
-    const service = useContext(ServicesContext).login;
+    const dispatch = useAppDispatch();
+    const user = useAppSelector(state => state.auth.user)
+    const loginStatus = useAppSelector(state => state.auth.status)
+    const navigate = useNavigate()
+    
+    const canLogin = loginStatus === 'loggedOut'
 
-    const user = useAuthStore((state) => state.user);
-    const updateUser = useAuthStore((state) => state.updateUser);
+    function handleLogin(provider: AuthProvider) {
+        dispatch(login(provider)).then(() => {
+            navigate('/')
+        })
+    }
 
     function handleLogout() {
-        service.logout().then(result => {
-            console.log(result);
-            if (result instanceof Error) {
-                console.log(result);
-            } else {
-                updateUser();
-            }
-        });
+        dispatch(logout());
     }
 
     return <nav>
@@ -35,11 +38,12 @@ export default function Navbar() {
         </ul>
         {user == undefined
             ? (
-                <div className="action">
-                    <Link to='/login'> Register or login </Link>
-                </div>
+                <button className="action" disabled={!canLogin} onClick={() => handleLogin('github')}>
+                    {loginStatus === 'loading' ? "Login in ... " : (<><FaGithub /> Login with Github </>)}
+                </button>
             ) : (
                 <UserAvatar user={user} onLogout={handleLogout} />
-            )}
-    </nav>;
+            )
+        }
+    </nav >;
 }

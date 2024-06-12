@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import { useErrorMessageStore } from "../store/errorMessageStore";
-import ErrorMessage from "./ErrorMessage";
+import { useErrorMessageStore } from "../app/errorMessageStore";
+import ErrorMessage from "./ErrorMessage/ErrorMessage";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 

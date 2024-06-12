@@ -1,36 +1,32 @@
-import GithubAPIService from "../githubApi";
 import { IChallengerService } from "./challengerService";
 
 import { Entry } from "../../types/entry";
 import { Challenger } from "../../types/challenger";
-import { isFromThisWeek, getRandomNumberBetween } from "../../utils";
+import { getRandomNumberBetween } from "../../utils";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 
 export interface IEntriesService {
-    getWeeksEntries(): Promise<Entry[] | Error>;
+    getEntries(): Promise<Entry[] | Error>;
+    vote(userId: string, entryId: string): Promise<Entry | Error>;
 }
 
 export class MockEntriesService implements IEntriesService {
-    async getWeeksEntries(): Promise<Entry[] | Error> {
+    async getEntries(): Promise<Entry[] | Error> {
         const entries: Entry[] = [];
 
         const challengers: Challenger[] = [
             {
-                name: 'Gracy Tsierenana',
-                profileUrl: '',
+                fullName: 'Gracy Tsierenana',
                 profilePictureUrl: '',
-                authProvider: 'google',
             },
             {
-                name: 'Glorio Tsierenana',
-                profileUrl: '',
+                fullName: 'Glorio Tsierenana',
                 profilePictureUrl: '',
-                authProvider: 'google',
             },
             {
-                name: 'Ferson Tsierenana',
-                profileUrl: '',
+                fullName: 'Ferson Tsierenana',
                 profilePictureUrl: '',
-                authProvider: 'google',
             }
         ];
 
@@ -39,7 +35,8 @@ export class MockEntriesService implements IEntriesService {
                 id: `${i}`,
                 url: 'https://gracy.com/',
                 homepage: 'github.com',
-                author: challengers[getRandomNumberBetween(0, challengers.length - 1)]
+                author: challengers[getRandomNumberBetween(0, challengers.length - 1)],
+                voteCount: getRandomNumberBetween(0, 100),
             }
 
             entries.push(entry);
@@ -52,6 +49,29 @@ export class MockEntriesService implements IEntriesService {
         })
     }
 
+    async vote(userId: string, entryId: string): Promise<Entry | Error> {
+        console.log('user id : ', userId);
+
+        const votedEntry: Entry = {
+            id: entryId,
+            url: '',
+            homepage: '',
+            author: {
+                fullName: 'Ferson Tsierenana',
+                profilePictureUrl: '',
+
+            },
+            voteCount: getRandomNumberBetween(0, 100),
+            voted: true,
+        }
+
+        return new Promise((resolve) => {
+            entryId
+            setTimeout(() => {
+                resolve(votedEntry)
+            }, 1000)
+        })
+    }
 }
 
 export default class EntriesService implements IEntriesService {
@@ -61,35 +81,27 @@ export default class EntriesService implements IEntriesService {
         this.challengerService = challengerService;
     }
 
-    async getWeeksEntries(): Promise<Entry[] | Error> {
+    async vote(userId: string, entryId: string): Promise<Entry | Error> {
+        throw new Error("Method not implemented.");
+    }
+
+    async getEntries(): Promise<Entry[] | Error> {
+        const challengers: Challenger[] = await this.challengerService!.getAllChallengers();
+        
         const entries: Entry[] = [];
 
-        const challengers: Challenger[] = await this.challengerService!.getAllChallengers();
-        for (const challenger of challengers) {
-            const repos = await GithubAPIService.getRepos(challenger.name);
+        const querySnapshot = await getDocs(collection(db, "entries"));
 
-            const thisWeeksRepo = repos.filter(repo => {
-                const createdThisWeek: boolean = isFromThisWeek(new Date(repo.created_at));
-                const hasUfcInName: boolean = repo.name.includes('ufc');
-
-                return createdThisWeek && hasUfcInName;
-            });
-
-            if (thisWeeksRepo.length === 0) { continue; }
-            else {
-                thisWeeksRepo.forEach((repo) => {
-
-                    const entry: Entry = {
-                        id: challenger.id ?? '',
-                        url: repo.url,
-                        homepage: repo.homepage,
-                        author: challenger,
-                    }
-
-                    entries.push(entry);
-                })
+        querySnapshot.forEach(async (doc) => {
+            const entry: Entry = {
+                id: doc.data().id,
+                url: doc.data().url,
+                homepage: doc.data().homepage,
+                author: challengers.find(e => e.username === doc.data().author)!,
+                voteCount: 0,
             }
-        }
+            entries.push(entry)
+        })
 
         return entries;
     }

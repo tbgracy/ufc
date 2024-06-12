@@ -1,4 +1,4 @@
-import { useErrorMessageStore } from "../../../store/errorMessageStore";
+import { useErrorMessageStore } from "../../../app/errorMessageStore";
 import { RankedUser } from "../../../types/rankedUser";
 import TopItem from "./TopItem";
 
