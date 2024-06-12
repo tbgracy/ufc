@@ -52,6 +52,8 @@ export class MockEntriesService implements IEntriesService {
     }
 
     async vote(userId: string, entryId: string): Promise<Entry | Error> {
+        console.log(userId);
+        
         const votedEntry: Entry = {
             id: entryId,
             url: '',
@@ -87,8 +89,6 @@ export default class EntriesService implements IEntriesService {
         const user = this.authService.getLocalUser();
         return Boolean(votes.find((v: Vote) => v.userId === user?.id))
     }
-
-    private unvote() { }
 
     async vote(userId: string, entryId: string): Promise<Entry | Error> {
         // TODO : try catch

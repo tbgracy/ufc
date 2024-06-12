@@ -13,16 +13,6 @@ export class MockChallengerService implements IChallengerService {
 }
 
 export default class ChallengerService implements IChallengerService {
-    private async isChallengerAlreadyRegistered(name: string): Promise<boolean> {
-        const challengers = await this.getAllChallengers();
-
-        for (const challenger of challengers) {
-            if (challenger.fullName === name) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     async getAllChallengers(): Promise<Challenger[]> {
         const challengers: Challenger[] = [];
