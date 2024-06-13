@@ -60,9 +60,9 @@ In `src/context.ts` change the `inDevEnv` value to `true` or `false`.
 
 ## 👥 Authors
 
-- Tsierenana Botramanagna Gracy for the idea and coding
-- Luca Zo Haingo for the overall design
-- Safidy Raharijesy for the logo
+- Tsierenana Botramanagna Gracy ([@tbgracy](https://github.com/tbgracy)) for the idea and coding
+- Luca Zo Haingo ([@lucazh](https://github.com/lucazh)) for the overall design
+- Safidy Raharijesy ([@sfd-consulting]()) for the logo
 
 ## TODO 
 - [ ] Set up message system (popups, with semantic color)
