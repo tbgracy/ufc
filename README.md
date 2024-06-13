@@ -2,30 +2,59 @@
 
 ## 📝 Description
 
-A weekly frontend challenge to improve your skills in HTML, CSS and JavaScript.
-
+A weekly frontend challenge host website to improve your skills in HTML, CSS and JavaScript.
 
 ## 🤔 Why
 
 Me and some friends wanted to practice our frontend coding skills and decide
 to take one design to life every week. Along that, we needed an automatic accountability
 system that could also motivate us to give our best. So I thought of a website were we can
-browse all participant's entries and eventually vote for one. It was also a good excuse for
+browse all participant's entries and eventually vote for one. It was also a good opportunity for
 me to practice and learn React at the same time.
 
 ## 🙋 How to participate
 
-Go to [dot.com](dot.com). Login with your github account.
-Create a repository with the following pattern for every entry : 
+- **Step 1 :** Go [here](https://ultimate-frontend-challenge.netlify.app). Login with your github account.
 
-`ufc-w<week-number>-<anything-you-want>`
+- **Step 2 :** Go [here](https://github.com/lucazh/ufc-entries) to see the current challenge.
 
-Example : `ufc-w1-my-first-entry`
+- **Step 3 :** Create a repository with `ufc` in it's name so the repository will automatically be added to the website.
 
-Then you push your code to your repository and it will be automatically added to the website.
-You need to host your code on github pages (or any other provider) to be able to see it on the website and provide the url in the `README.md` file (it will be automatically be scrapped).
+    - Example : `ufc-w1-my-first-entry`
 
-## Toggle dev mode (for mock api)
+
+You need to host your code on github pages (or any other provider) to be able to see it on the website and provide the url in the about section so it can be previewed on the home page.
+
+## 🤝 How to contribute?
+
+You can contribute by doing some of the undone todo items in [the last section](#todo), or make some improvements, whether it's features or design.
+
+### 1️⃣ Make it run locally
+
+First, fork the repository and follow the following instructions to make it run locally : 
+
+1. Clone the repository : 
+```
+git clone https://github.com/tbgracy/ufc
+```
+2. Install all the dependencies : 
+```
+cd ./ufc
+npm i # or npm install
+```
+3. Create an .env file based on the example file provided
+```
+cp .env.example .env
+```
+4. Run it
+```
+npm run dev
+```
+Now it should run on your local machine fine with placeholder data.
+
+### 2️⃣ Make some changes and open a PR
+
+### Toggle dev mode (for mock api)
 
 In `src/context.ts` change the `inDevEnv` value to `true` or `false`.
 
@@ -44,5 +73,5 @@ In `src/context.ts` change the `inDevEnv` value to `true` or `false`.
 - [ ] Add handmade icons
 - [ ] Make it mobile friendly
 - [ ] Add view toggle (card / list)
-- [ ] Automate template selection (using scrapping)
+- [ ] Display current challenge to website
 - [ ] Internationalization
