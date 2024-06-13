@@ -10,24 +10,31 @@ export default class MockEntriesService implements IEntriesService {
 
         const challengers: Challenger[] = [
             {
-                fullName: 'Gracy Tsierenana',
-                profilePictureUrl: '',
+                fullName: 'John Doe',
+                profileUrl: 'https://example.com',
             },
             {
-                fullName: 'Glorio Tsierenana',
-                profilePictureUrl: '',
+                fullName: 'Jane Doe',
+                profileUrl: 'https://example.com',
             },
             {
-                fullName: 'Ferson Tsierenana',
-                profilePictureUrl: '',
+                fullName: 'Miyamoto Musashi',
+                profileUrl: 'https://example.com',
             }
         ];
+
+        const homepages = [
+            "https://example.com",
+            "https://tbgracy.netlify.app",
+            undefined,
+            undefined,
+        ]
 
         for (let i = 0; i < 15; i++) {
             const entry = {
                 id: `${i}`,
                 url: 'https://gracy.com/',
-                homepage: 'github.com',
+                homepage: homepages[getRandomNumberBetween(0, homepages.length - 1)],
                 author: challengers[getRandomNumberBetween(0, challengers.length - 1)],
                 voteCount: getRandomNumberBetween(0, 100),
             }
@@ -44,15 +51,13 @@ export default class MockEntriesService implements IEntriesService {
 
     async vote(userId: string, entryId: string): Promise<Entry | Error> {
         console.log(userId);
-        
+
         const votedEntry: Entry = {
             id: entryId,
             url: '',
-            homepage: '',
             author: {
-                fullName: 'Ferson Tsierenana',
-                profilePictureUrl: '',
-
+                fullName: 'Jane Doe',
+                profileUrl: 'https://example.com',
             },
             voteCount: getRandomNumberBetween(0, 100),
             voted: true,

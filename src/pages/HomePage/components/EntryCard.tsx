@@ -1,6 +1,7 @@
 import { Entry } from "../../../types/entry"
 import { BiLinkExternal } from "react-icons/bi"
 import VotingSection from "./VotingSection";
+import placholderAvatar from "../../../assets/images/avatar-placeholder.svg"
 
 
 type EntryProps = {
@@ -17,13 +18,12 @@ export default function EntryCard({ isLoading, entry }: EntryProps) {
 
     return <article className={className}>
         <div className="entry-info">
-            <img src={`//image.thum.io/get/${entry?.homepage}`} alt="preview" />
-            <img src='#' alt="preview" />
-            <a href={entry?.homepage} target="_blank"><BiLinkExternal /></a>
+            <img loading="lazy" src={`//image.thum.io/get/${entry?.homepage}`} alt="Website preview" />
+            {entry?.homepage ? <a href={entry?.homepage} target="_blank"><BiLinkExternal /></a> : ""}
         </div>
         <div className="author-info">
             <a href={entry!.author.profileUrl} target="_blank">
-                <img src={entry!.author.profilePictureUrl} alt="" />
+                <img src={entry?.author.profilePictureUrl ?? placholderAvatar} alt="" />
             </a>
             <p>{entry!.author.fullName}</p>
             <VotingSection entry={entry!} />
