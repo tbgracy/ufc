@@ -16,7 +16,7 @@ me to practice and learn React at the same time.
 
 - **Step 1 :** Go [here](https://ultimate-frontend-challenge.netlify.app). Login with your github account.
 
-- **Step 2 :** Go [here](https://github.com/lucazh/ufc-entries) to see the current challenge.
+- **Step 2 :** Go [here](https://github.com/lucazh/UFC-topic) to see the current challenge.
 
 - **Step 3 :** Create a repository with `ufc` in it's name so the repository will automatically be added to the website.
 
