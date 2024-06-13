@@ -1,16 +1,7 @@
+import { db } from "../firebase";
 import { Challenger } from "../../types/challenger";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
-
-export interface IChallengerService {
-    getAllChallengers(): Promise<Challenger[]>;
-}
-
-export class MockChallengerService implements IChallengerService {
-    getAllChallengers(): Promise<Challenger[]> {
-        throw new Error("Method not implemented.");
-    }
-}
+import IChallengerService from "./challengersServiceInterface";
 
 export default class ChallengerService implements IChallengerService {
 

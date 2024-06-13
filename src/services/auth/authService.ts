@@ -1,53 +1,14 @@
-import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { Success } from "../types/success";
-import { auth, db } from "./firebase";
-import { User } from "../types/user";
-
-import avatarPlaceholder from "../assets/images/avatar-placeholder.svg";
-import { AuthProvider } from "../types/authProvider";
-import { nanoid } from "@reduxjs/toolkit";
-import { IChallengerService } from "./api/challengerService";
-import { Challenger } from "../types/challenger";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
+import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-export interface IAuthService {
-    loginWith(provider: AuthProvider): Promise<Error | string>;
-    logout(): Promise<Error | Success>;
-    getLocalUser(): User | undefined;
-}
+import { auth, db } from "../firebase";
+import { User } from "../../types/user";
+import { Success } from "../../types/success";
+import { Challenger } from "../../types/challenger";
+import { AuthProvider } from "../../types/authProvider";
+import IAuthService, { getLocalUser } from "./authServiceInterface";
+import IChallengerService from "../challengers/challengersServiceInterface";
 
-const getLocalUser = (): User | undefined => {
-    try {
-        const user = JSON.parse(localStorage.getItem('user')!)
-        return user
-    } catch {
-        return undefined
-    }
-}
-
-export class MockAuthService implements IAuthService {
-    async loginWith(provider: AuthProvider): Promise<Error | string> {
-        console.log(`Login in with ${provider}`);
-
-        const user: User = {
-            id: nanoid(),
-            fullName: 'Tsierenana B. Gracy',
-            profilePictureUrl: avatarPlaceholder,
-        }
-        localStorage.setItem('user', JSON.stringify(user))
-        await new Promise((resolve) => setTimeout(resolve, 2000))
-        return 'User logged in';
-    }
-
-    async logout(): Promise<Error | Success> {
-        localStorage.clear();
-        return { message: 'Logout : success' };
-    }
-
-    getLocalUser(): User | undefined {
-        return getLocalUser()
-    }
-}
 
 export class AuthService implements IAuthService {
     private challengerService: IChallengerService;
@@ -78,7 +39,7 @@ export class AuthService implements IAuthService {
     async loginWith(provider: AuthProvider): Promise<Error | string> {
         try {
             console.log('logging in ... opening pupup ...');
-            
+
             const result = await signInWithPopup(auth, this.providers[provider]);
 
             const username = (await this.getGithubUsername(result.user.providerData[0].uid))

@@ -12,7 +12,7 @@ type AuthState = {
 
 const initialState: AuthState = {
     status: 'loggedOut',
-    user: service.login.getLocalUser(),
+    user: service.auth.getLocalUser(),
 }
 
 const login = createAsyncThunk<
@@ -20,7 +20,7 @@ const login = createAsyncThunk<
     AuthProvider,
     { dispatch: AppDispatch }
 >('auth/login', async (provider, { dispatch }) => {
-    const response = await service.login.loginWith(provider)
+    const response = await service.auth.loginWith(provider)
     if (response instanceof Error) {
         return 'error'
     } else {
@@ -34,7 +34,7 @@ const logout = createAsyncThunk<
     void,
     { dispatch: AppDispatch }
 >('auth/logout', async (_, { dispatch }) => {
-    const response = await service.login.logout()
+    const response = await service.auth.logout()
     if (response instanceof Error) {
         return 'error'
     } else {

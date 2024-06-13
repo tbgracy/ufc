@@ -1,80 +1,11 @@
-import { IChallengerService } from "./challengerService";
-
 import { Entry } from "../../types/entry";
 import { Vote } from "../../types/vote";
 import { Challenger } from "../../types/challenger";
-import { getRandomNumberBetween } from "../../utils";
 import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
-import { IAuthService } from "../authService";
-
-export interface IEntriesService {
-    getEntries(): Promise<Entry[] | Error>;
-    vote(userId: string, entryId: string): Promise<Entry | Error>;
-}
-
-export class MockEntriesService implements IEntriesService {
-    async getEntries(): Promise<Entry[] | Error> {
-        const entries: Entry[] = [];
-
-        const challengers: Challenger[] = [
-            {
-                fullName: 'Gracy Tsierenana',
-                profilePictureUrl: '',
-            },
-            {
-                fullName: 'Glorio Tsierenana',
-                profilePictureUrl: '',
-            },
-            {
-                fullName: 'Ferson Tsierenana',
-                profilePictureUrl: '',
-            }
-        ];
-
-        for (let i = 0; i < 15; i++) {
-            const entry = {
-                id: `${i}`,
-                url: 'https://gracy.com/',
-                homepage: 'github.com',
-                author: challengers[getRandomNumberBetween(0, challengers.length - 1)],
-                voteCount: getRandomNumberBetween(0, 100),
-            }
-
-            entries.push(entry);
-        }
-
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(entries);
-            }, 1000)
-        })
-    }
-
-    async vote(userId: string, entryId: string): Promise<Entry | Error> {
-        console.log(userId);
-        
-        const votedEntry: Entry = {
-            id: entryId,
-            url: '',
-            homepage: '',
-            author: {
-                fullName: 'Ferson Tsierenana',
-                profilePictureUrl: '',
-
-            },
-            voteCount: getRandomNumberBetween(0, 100),
-            voted: true,
-        }
-
-        return new Promise((resolve) => {
-            entryId
-            setTimeout(() => {
-                resolve(votedEntry)
-            }, 1000)
-        })
-    }
-}
+import IChallengerService from "../challengers/challengersServiceInterface";
+import IEntriesService from "./entriesServiceInterface";
+import IAuthService from "../auth/authServiceInterface";
 
 export default class EntriesService implements IEntriesService {
     private challengerService?: IChallengerService;
@@ -113,7 +44,7 @@ export default class EntriesService implements IEntriesService {
                     voteCount: entry.votes.length,
                     voted: !voted
                 }
-                
+
                 return updatedEntry
             } else {
                 return Error('Entry not found')
