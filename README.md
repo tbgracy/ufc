@@ -54,10 +54,6 @@ Now it should run on your local machine fine with placeholder data.
 
 ### 2️⃣ Make some changes and open a PR
 
-### Toggle dev mode (for mock api)
-
-In `src/context.ts` change the `inDevEnv` value to `true` or `false`.
-
 ## 👥 Authors
 
 - Tsierenana Botramanagna Gracy ([@tbgracy](https://github.com/tbgracy)) for the idea and coding
