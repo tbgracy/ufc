@@ -1,26 +1,25 @@
-import { Timeframe } from "../../../types/timeframe"
+import { useAppDispatch, useAppSelector } from "../../../app/hooks"
+import { toggleTimeframe } from "../rankingSlice"
 
-type RankingPageProps = {
-    timeframe: 'weekly' | 'all-time',
-    onTabChange: (newTab: Timeframe) => void,
-}
+export default function RankingTab() {
+    const dispatch = useAppDispatch()
+    const currentTimeframe = useAppSelector(state => state.ranking.timeframe)
 
-export default function RankingTab({ timeframe, onTabChange }: RankingPageProps) {
-    function toggleTimeframe() {
-        onTabChange(timeframe == 'weekly' ? 'all-time' : 'weekly')
+    function handleTimeframeToggle() {
+        dispatch(toggleTimeframe())
     }
 
     return <>
         <ul className="tab-ranking">
             <li
-                className={timeframe == 'weekly' ? 'active' : ''}
-                onClick={timeframe != 'weekly' ? toggleTimeframe : () => { }}
+                className={currentTimeframe == 'weekly' ? 'active' : ''}
+                onClick={handleTimeframeToggle}
             >
                 Weekly
             </li>
             <li
-                className={timeframe == 'all-time' ? 'active' : ''}
-                onClick={timeframe != 'all-time' ? toggleTimeframe : () => { }}
+                className={currentTimeframe == 'all-time' ? 'active' : ''}
+                onClick={handleTimeframeToggle}
             >
                 All-time
             </li>
