@@ -1,6 +1,7 @@
 import { Challenger } from "../../types/challenger";
 import { Entry } from "../../types/entry";
 import { getRandomNumberBetween } from "../../utils";
+import pickRandom from "../../utils/pickRandomElement";
 import IEntriesService from "./entriesServiceInterface";
 
 
@@ -30,13 +31,21 @@ export default class MockEntriesService implements IEntriesService {
             undefined,
         ]
 
+        const dates = [
+            new Date(2024, 5, 10),
+            new Date(),
+            new Date(2024, 3, 10),
+            new Date(2024, 2, 10),
+        ]
+
         for (let i = 0; i < 15; i++) {
-            const entry = {
+            const entry: Entry = {
                 id: `${i}`,
                 url: 'https://gracy.com/',
-                homepage: homepages[getRandomNumberBetween(0, homepages.length - 1)],
-                author: challengers[getRandomNumberBetween(0, challengers.length - 1)],
+                homepage: pickRandom(homepages),
+                author: pickRandom(challengers),
                 voteCount: getRandomNumberBetween(0, 100),
+                createdAt: pickRandom(dates).toISOString(),
             }
 
             entries.push(entry);

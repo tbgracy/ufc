@@ -18,8 +18,13 @@ export default function EntryCard({ isLoading, entry }: EntryProps) {
 
     return <article className={className}>
         <div className="entry-info">
-            <img loading="lazy" src={`//image.thum.io/get/${entry?.homepage}`} alt="Website preview" />
-            {entry?.homepage ? <a href={entry?.homepage} target="_blank"><BiLinkExternal /></a> : ""}
+            {entry?.homepage
+                ? <>
+                    <img loading="lazy" src={`//image.thum.io/get/${entry?.homepage}`} alt="Website preview" />
+                    <a href={entry?.homepage} target="_blank"><BiLinkExternal /></a>
+                </>
+                : <img src={placholderAvatar} />
+            }
         </div>
         <div className="author-info">
             <a href={entry!.author.profileUrl} target="_blank">

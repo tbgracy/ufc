@@ -57,7 +57,7 @@ const entriesSlice = createSlice({
     name: 'entries',
     initialState,
     reducers: {
-        toggleTimeframe: (state) => {
+        toggleTimeframe(state) {
             state.timeframe = state.timeframe === 'weekly' ? 'all-time' : 'weekly'
             state.entries = state.timeframe === 'weekly'
                 ? state.allEntries.filter(e => isFromThisWeek(new Date(e.createdAt!)))

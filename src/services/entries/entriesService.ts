@@ -22,7 +22,6 @@ export default class EntriesService implements IEntriesService {
     }
 
     async vote(userId: string, entryId: string): Promise<Entry | Error> {
-        // TODO : try catch
         try {
             const entryRef = doc(db, 'entries', entryId);
             const docSnap = await getDoc(entryRef);
