@@ -4,7 +4,7 @@ import { Challenger } from "../../types/challenger"
 import { Timeframe } from "../../types/timeframe";
 
 type RankingState = {
-    status: 'idle' | 'loading' | 'fetched'
+    status: 'idle' | 'loading' | 'done'
     timeframe: Timeframe
     challengers: Challenger[]
 }
@@ -30,8 +30,17 @@ const rankingSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(fetchRankedChallengers.pending, (action, state) => { })
-            .addCase(fetchRankedChallengers.fulfilled, (action, state) => { })
+            .addCase(fetchRankedChallengers.pending, (state) => {
+                state.status = 'loading'
+            })
+            .addCase(fetchRankedChallengers.fulfilled, (state, action) => {
+                state.challengers = action.payload
+                state.status = 'done'
+            })
+            .addCase(fetchRankedChallengers.rejected, (state, action) => {
+                console.log(action);
+                state.status = 'done'
+            })
     }
 })
 
