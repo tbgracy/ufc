@@ -1,9 +1,11 @@
 import { getDocs, collection } from "firebase/firestore"
 import { Entry } from "../types/entry"
 import { User } from "../types/user"
+import avatarPlaceholder from "../assets/images/avatar-placeholder.svg";
 import IChallengerService from "./challengers/challengersServiceInterface"
 import { db } from "./firebase"
 import { isFromThisWeek } from "../utils"
+import { nanoid } from "@reduxjs/toolkit";
 
 export default class RankingService {
     private challengerService: IChallengerService
@@ -17,6 +19,28 @@ export default class RankingService {
     }
 
     async getWeeklyRank(): Promise<User[]> {
+        const users: User[] = [
+            {
+                id: nanoid(),
+                fullName: 'Tsierenana B. Gracy',
+                profilePictureUrl: avatarPlaceholder,
+            },
+            {
+                id: nanoid(),
+                fullName: 'Tsierenana B. Gracy',
+                profilePictureUrl: avatarPlaceholder,
+            },
+            {
+                id: nanoid(),
+                fullName: 'Tsierenana B. Gracy',
+                profilePictureUrl: avatarPlaceholder,
+            }
+        ]
+
+        await new Promise(resolve => setTimeout(resolve, 1000))
+
+        return users
+
         const allChallengers = await this.challengerService.getAllChallengers()
 
         const weeksEntries: Entry[] = []
@@ -37,7 +61,7 @@ export default class RankingService {
         })
 
         const rankedEntries = weeksEntries.sort((a, b) => b.voteCount - a.voteCount)
-    
+
         const rankedChallengers = rankedEntries.map(e => e.author)
 
         return rankedChallengers
