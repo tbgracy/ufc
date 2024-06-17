@@ -31,7 +31,8 @@ export default function EntryList() {
     }
 
     else {
-        const entryElements = entries.map((entry: Entry, i: number) => <EntryCard key={i} isLoading={false} entry={entry} />)
+        const orederedEntries = entries.slice().sort((b, a) => a.createdAt!.localeCompare(b.createdAt!))
+        const entryElements = orederedEntries.map((entry: Entry, i: number) => <EntryCard key={i} isLoading={false} entry={entry} />)
 
         return (
             entryElements.length != 0

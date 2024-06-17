@@ -68,6 +68,7 @@ export default class EntriesService implements IEntriesService {
                 homepage: doc.data().homepage,
                 author: challengers.find(e => e.username === doc.data().author)!,
                 voteCount: doc.data().votes.length,
+                createdAt: doc.data().createdAt
             }
             entry.voted = this.alreadyVoted(doc.data().votes)
             entries.push(entry)
