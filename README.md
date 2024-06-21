@@ -4,7 +4,7 @@
 
 A weekly frontend challenge host website to improve your skills in HTML, CSS and JavaScript.
 
-## 🤔 Why
+## 🤔 Why UFC?
 
 Me and some friends wanted to practice our frontend coding skills and decide
 to take one design to life every week. Along that, we needed an automatic accountability
@@ -12,7 +12,7 @@ system that could also motivate us to give our best. So I thought of a website w
 browse all participant's entries and eventually vote for one. It was also a good opportunity for
 me to practice and learn React at the same time.
 
-## 🙋 How to participate
+## 🙋 How to participate?
 
 - **Step 1 :** Go [here](https://ultimate-frontend-challenge.netlify.app). Login with your github account.
 
