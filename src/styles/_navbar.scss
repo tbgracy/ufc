@@ -111,30 +111,29 @@ nav {
     }
   }
 }
-@media screen and (max-width: 520px){
+@media screen and (max-width: 510px){
   nav{
     ul{
-      left: 185px;
-      width: 155px;
+      margin-left: -25px;
+      width: 180px;
     }
   }
 }
-@media screen and (max-width: 400px){
+@media screen and (max-width: 420px){
   body{
     font-size: 12px;
   }
   nav{
     ul{ 
-      left: 165px;
-      width: 140px;
+        margin-left: -20px;
+        width: 150px;
     }
   }
 }
-@media screen and (max-width: 360px){
+@media screen and (max-width: 370px){
   nav{
     ul{ 
-      left: 155px;
-      width: 140px;
+      width: 135px;
     }
   }
 }
