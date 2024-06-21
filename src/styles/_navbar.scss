@@ -91,3 +91,35 @@ nav {
     }
   }
 }
+
+/*Responsive CSS rules*/
+@media screen and (max-width: 1000px){
+  nav{
+    .login-text{
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 720px){
+  body{
+    font-size: 14px;
+  }
+  nav{
+    ul{
+      width: 200px;
+    }
+  }
+}
+@media screen and (max-width: 500px){
+  nav{
+    ul{
+      position: relative;
+      left: 90px;
+      width: 170px;
+    }
+    .logo{
+/*      padding-right: 50px;*/
+    }
+  }
+}
