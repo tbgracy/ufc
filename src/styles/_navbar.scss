@@ -93,7 +93,7 @@ nav {
 }
 
 /*Responsive CSS rules*/
-@media screen and (max-width: 1000px){
+@media screen and (max-width: 1200px){
   nav{
     .login-text{
       display: none;
@@ -111,15 +111,30 @@ nav {
     }
   }
 }
-@media screen and (max-width: 500px){
+@media screen and (max-width: 520px){
   nav{
     ul{
-      position: relative;
-      left: 90px;
-      width: 170px;
+      left: 185px;
+      width: 155px;
     }
-    .logo{
-/*      padding-right: 50px;*/
+  }
+}
+@media screen and (max-width: 400px){
+  body{
+    font-size: 12px;
+  }
+  nav{
+    ul{ 
+      left: 165px;
+      width: 140px;
+    }
+  }
+}
+@media screen and (max-width: 360px){
+  nav{
+    ul{ 
+      left: 155px;
+      width: 140px;
     }
   }
 }
