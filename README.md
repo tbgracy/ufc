@@ -63,11 +63,12 @@ git checkout <your branch name>
 git add .
 git commit '<your commit>'
 ```
-3.Pull request
+3.Fork this repo
 ```
-git remote add origin <your remote repo url>
-git pull origin <your branch name>
+git remote add origin <your remote fork repo url>
+git push origin <your branch name>
 ```
+Then do a pull request manually in your github.
 ## 👥 Authors
 
 - Tsierenana Botramanagna Gracy ([@tbgracy](https://github.com/tbgracy)) for the idea and coding
