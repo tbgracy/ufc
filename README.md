@@ -4,7 +4,7 @@
 
 A weekly frontend challenge host website to improve your skills in HTML, CSS and JavaScript.
 
-## 🤔 Why
+## 🤔 Why UFC?
 
 Me and some friends wanted to practice our frontend coding skills and decide
 to take one design to life every week. Along that, we needed an automatic accountability
@@ -12,7 +12,7 @@ system that could also motivate us to give our best. So I thought of a website w
 browse all participant's entries and eventually vote for one. It was also a good opportunity for
 me to practice and learn React at the same time.
 
-## 🙋 How to participate
+## 🙋 How to participate?
 
 - **Step 1 :** Go [here](https://ultimate-frontend-challenge.netlify.app). Login with your github account.
 
@@ -20,10 +20,10 @@ me to practice and learn React at the same time.
 
 - **Step 3 :** Create a repository with `ufc` in it's name so the repository will automatically be added to the website.
 
-    - Example : `ufc-w1-my-first-entry`
+    - Example : `ufc-w1-my-first-entry` stand for "Ultimate frontend challenge - week one - first - entry"
 
 
-You need to host your code on github pages (or any other provider) to be able to see it on the website and provide the url in the about section so it can be previewed on the home page.
+You need to host your code on github pages(`recommended`) or any other host provider(vercel, netfly,...) to be able to see it on the website and provide the **url** of your hosted website in the **about** section so it can be previewed on the home page.
 
 ## 🤝 How to contribute?
 
@@ -52,8 +52,23 @@ npm run dev
 ```
 Now it should run on your local machine fine with placeholder data.
 
-### 2️⃣ Make some changes and open a PR
-
+### 2️⃣ Make some changes
+1. Create new branch
+```
+git branch <your branch name>
+git checkout <your branch name>
+```
+2. Commit the change you've done
+```
+git add .
+git commit '<your commit>'
+```
+3.Fork this repo
+```
+git remote add origin <your remote fork repo url>
+git push origin <your branch name>
+```
+Then do a pull request manually in your github.
 ## 👥 Authors
 
 - Tsierenana Botramanagna Gracy ([@tbgracy](https://github.com/tbgracy)) for the idea and coding

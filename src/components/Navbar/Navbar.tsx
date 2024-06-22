@@ -39,7 +39,7 @@ export default function Navbar() {
         {user == undefined
             ? (
                 <button className="action" disabled={!canLogin} onClick={() => handleLogin('github')}>
-                    {loginStatus === 'loading' ? "Login in ... " : (<><FaGithub /> Login with Github </>)}
+                    {loginStatus === 'loading' ? "Login in ... " : (<><FaGithub /><p className="login-text">Login with Github</p> </>)}
                 </button>
             ) : (
                 <UserAvatar user={user} onLogout={handleLogout} />
