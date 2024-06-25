@@ -21,7 +21,7 @@ export default function EntryList() {
         const entryElements = [];
         for (let i = 0; i < 6; i++) {
             entryElements.push(
-                <EntryCard key={i} isLoading={true} />
+                <EntryCard key={crypto.randomUUID()} isLoading={true} />
             );
         }
 
@@ -32,7 +32,7 @@ export default function EntryList() {
 
     else {
         const orederedEntries = entries.slice().sort((b, a) => a.createdAt!.localeCompare(b.createdAt!))
-        const entryElements = orederedEntries.map((entry: Entry, i: number) => <EntryCard key={i} isLoading={false} entry={entry} />)
+        const entryElements = orederedEntries.map((entry: Entry) => <EntryCard key={entry.id} isLoading={false} entry={entry} />)
 
         return (
             entryElements.length != 0
