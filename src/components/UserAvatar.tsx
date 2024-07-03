@@ -5,7 +5,7 @@ import Button from "./Button";
 export default function UserAvatar({ user, onLogout }: { user: User, onLogout: () => void }) {
     const [isExpanded, setIsExpanded] = useState(false);
 
-    return <div className="logged-in-action" onClick={() => setIsExpanded(!isExpanded)}>
+    return <div className="action logged-in-action" onClick={() => setIsExpanded(!isExpanded)}>
         <img src={user.profilePictureUrl} alt="" className="user-avatar" />
         {isExpanded && <UserActions user={user} onLogout={onLogout} />}
     </div>

@@ -7,6 +7,7 @@ import NavLink from "./NavLink";
 import UserAvatar from "../UserAvatar";
 import { FaGithub } from "react-icons/fa";
 import { AuthProvider } from "../../types/authProvider";
+import HamburgerMenu from "./HamburgerMenu";
 
 export default function Navbar() {
     const currentPath = useLocation().pathname;
@@ -14,7 +15,7 @@ export default function Navbar() {
     const user = useAppSelector(state => state.auth.user)
     const loginStatus = useAppSelector(state => state.auth.status)
     const navigate = useNavigate()
-    
+
     const canLogin = loginStatus === 'loggedOut'
 
     function handleLogin(provider: AuthProvider) {
@@ -36,6 +37,7 @@ export default function Navbar() {
             <NavLink target="/ranking" label="Ranking" isCurrent={currentPath === '/ranking'} />
             <NavLink target="/rules" label="Rules" isCurrent={currentPath === '/rules'} />
         </ul>
+        <HamburgerMenu />
         {user == undefined
             ? (
                 <button className="action" disabled={!canLogin} onClick={() => handleLogin('github')}>
