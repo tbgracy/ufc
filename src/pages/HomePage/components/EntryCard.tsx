@@ -2,6 +2,7 @@ import { Entry } from "../../../types/entry"
 import { BiLinkExternal } from "react-icons/bi"
 import VotingSection from "./VotingSection";
 import placholderAvatar from "../../../assets/images/avatar-placeholder.svg"
+import placeholder from "../../../assets/images/placeholder.png"
 
 
 type EntryProps = {
@@ -23,7 +24,7 @@ export default function EntryCard({ isLoading, entry }: EntryProps) {
                     <img loading="lazy" src={`//image.thum.io/get/${entry?.homepage}`} alt="Website preview" />
                     <a href={entry?.homepage} target="_blank"><BiLinkExternal /></a>
                 </>
-                : <img src={placholderAvatar} />
+                : <img src={placeholder} />
             }
         </div>
         <div className="author-info">
