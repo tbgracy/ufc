@@ -1,5 +1,10 @@
-@media (max-width: 900px) {
+@media (max-width: 460px) {
+  button.action {
+    padding-inline: 1rem;
+  }
+}
 
+@media (max-width: 900px) {
   .hamburger-menu {
     display: flex;
     flex-direction: column;
@@ -31,18 +36,26 @@
     }
   }
 
-  nav:has(.hamburger-menu[menu-open]) .navlinks {
-    padding-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    gap: 2rem;
-    top: 0;
-    height: 100vh;
-    width: 100vw;
-    background-color: $dark;
-    z-index: 100;
-    position: fixed;
+  .logged-in-action section {
+    right: unset !important;
+    translate: -36%;
+  }
+
+  nav:has(.hamburger-menu[menu-open]) {
+
+    .navlinks {
+      padding-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      gap: 2rem;
+      top: 0;
+      height: 100vh;
+      width: 100vw;
+      background-color: $dark;
+      z-index: 100;
+      position: fixed;
+    }
   }
 
   .navlinks {
