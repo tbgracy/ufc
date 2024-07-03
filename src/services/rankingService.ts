@@ -37,9 +37,9 @@ export default class RankingService {
             }
         ]
 
-        // await new Promise(resolve => setTimeout(resolve, 1000))
+        await new Promise(resolve => setTimeout(resolve, 1000))
 
-        // return users
+        return users
 
         const allChallengers = await this.challengerService.getAllChallengers()
 

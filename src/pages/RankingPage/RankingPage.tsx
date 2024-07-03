@@ -4,11 +4,13 @@ import RankingTab from "./components/RankingTab";
 import TopItem from "./components/TopItem";
 import { fetchRankedChallengers } from "./rankingSlice";
 import { FaSpinner } from "react-icons/fa";
+import { Challenger } from "../../types/challenger";
 
 export default function RankingPage() {
     const dispatch = useAppDispatch()
 
-    const challengers = useAppSelector(state => state.ranking.challengers)
+    // const challengers = useAppSelector(state => state.ranking.challengers)
+    const challengers: Challenger[] = []
     const status = useAppSelector(state => state.ranking.status)
 
     useEffect(() => {
@@ -22,7 +24,7 @@ export default function RankingPage() {
         {status !== 'done'
             ? <FaSpinner id="ranking-spinner" />
             : <>
-                {challengers.length === 0 ? <p>No challengers for now</p> :
+                {challengers.length === 0 ? <p>No ranked challengers for now</p> :
                     <section className="top-three">
                         {challengers[1] && <TopItem challenger={challengers[1]} rank={2} />}
                         {challengers[0] && <TopItem challenger={challengers[0]} rank={1} />}
